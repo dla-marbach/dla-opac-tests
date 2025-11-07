@@ -59,7 +59,7 @@ test('suchschlitz', async ({ page }) => {
   await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Dürrenmatt');
 
   // Einschränkende Auswahl Medientypen oberhalb des Suchschlitz
-  await page.locator('#gedrucktes').click();
+  await page.locator('#gedrucktes').click({ force: true });
   await page.locator('.ctg-search-autocomplete-button > a').click();
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
 
