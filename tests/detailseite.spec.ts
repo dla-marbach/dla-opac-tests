@@ -1,6 +1,179 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5800
+test('detailseite', async ({ page }) => {
+
+    // Detailanzeigen aller Bereiche der Spezifikation entsprechend
+    // Handschriften
+    await page.goto('find/opac/id/HS00000010');
+    await expect(page.locator('#detail')).toContainText('Medienart');
+    await expect(page.locator('#detail')).toContainText('Handschriften');
+    await expect(page.locator('#detail')).toContainText('Gattung');
+    await expect(page.locator('#detail')).toContainText('Briefe');
+    await expect(page.locator('#detail')).toContainText('VON');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00051974"]')).toContainText('Uhland, Emilie (1799-1881) [Verfasser/in]');
+    await expect(page.locator('#detail')).toContainText('AN');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00051979"]')).toContainText('Meyer, Marie [Adressat/in]');
+    await expect(page.locator('#detail')).toContainText('Entstehungszeit');
+    await expect(page.locator('#detail')).toContainText('02.07.1865');
+    await expect(page.locator('#detail')).toContainText('Entstehungsort');
+    await expect(page.locator('#detail')).toContainText('Tübingen');
+    await expect(page.locator('#detail')).toContainText('Umfang, Beilagen');
+    await expect(page.locator('#detail')).toContainText('2 Bl.');
+    await expect(page.locator('#detail')).toContainText('Sprache');
+    await expect(page.locator('#detail')).toContainText('Deutsch');
+    await expect(page.locator('#detail')).toContainText('Bestandssignatur');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/BF00000009"]')).toContainText('A:Uhland, Ludwig');
+    await expect(page.locator('#detail')).toContainText('Zugangsnummer');
+    await expect(page.locator('#detail')).toContainText('HS.1998.0111.00005');
+    await expect(page.locator('#detail')).toContainText('Mediennummer');
+    await expect(page.locator('#detail')).toContainText('HS000000109');
+    await expect(page.locator('#detail')).toContainText('Benutzung');
+    await expect(page.locator('#detail')).toContainText('Benutzung nur bedingt möglich!Nur mit Einverständnis der beteiligten Personen ausleihbar!');
+    await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
+    await expect(page.locator('#detail')).toContainText('Uhland, Ludwig (1787-1862)');
+    await expect(page.locator('#detail')).toContainText('Teilnachlass, Handschriften [A:Uhland, Ludwig]');
+
+    // Bilder und Objekte
+    await page.goto('find/opac/id/BI00000010');
+    await expect(page.locator('#content-area')).toContainText('André, Holger');
+    await expect(page.locator('#content-area')).toContainText('1995');
+    await expect(page.locator('#content-area')).toContainText('Inventarnummer: B 1999.0010');
+    await expect(page.locator('#content-area img').first()).toBeVisible();
+    await expect(page.locator('#detail')).toContainText('Medienart');
+    await expect(page.locator('#detail')).toContainText('Bilder und Objekte');
+    await expect(page.locator('#detail')).toContainText('Objekttyp');
+    await expect(page.locator('#detail')).toContainText('Photographie');
+    await expect(page.locator('#detail')).toContainText('Titel');
+    await expect(page.locator('#detail')).toContainText('Portrait Rafik Schami');
+    await expect(page.locator('#detail')).toContainText('Person');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00004570"]')).toContainText('Schami, Rafik (1946-) [Dargestellte Person allein]');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00053129"]')).toContainText('André, Holger [Urheber/in]');
+    await expect(page.locator('#detail')).toContainText('Entstehungszeit');
+    await expect(page.locator('#detail')).toContainText('1995');
+    await expect(page.locator('#detail')).toContainText('Bezeichnung');
+    await expect(page.locator('#detail')).toContainText('Rückseite mit Aufkleber des Photographen');
+    await expect(page.locator('#detail')).toContainText('Technik');
+    await expect(page.locator('#detail')).toContainText('Farbphoto. Vergrößerung auf Kunststoffpapier');
+    await expect(page.locator('#detail')).toContainText('Maße [in cm]');
+    await expect(page.locator('#detail')).toContainText('18,2 (Höhe) x 12,7 (Breite)');
+    await expect(page.locator('#detail')).toContainText('Inventarnummer');
+    await expect(page.locator('#detail')).toContainText('B 1999.0010');
+    await expect(page.locator('#detail')).toContainText('Erwerbungsnummer');
+    await expect(page.locator('#detail')).toContainText('BI.1999.0003');
+    await expect(page.locator('#detail')).toContainText('Digitales Objekt');
+    await expect(page.locator('#detail')).toContainText('9403-30');
+    await expect(page.locator('#detail').locator('.detail-images-row').locator('img')).toBeVisible();
+    await expect(page.locator('#detail')).toContainText('Benutzung');
+    await expect(page.locator('#detail')).toContainText('Am Standort');
+
+    // AK
+    await page.goto('find/opac/id/AK00000010');
+    await expect(page.locator('#content-area')).toContainText('Finck, Adrien');
+    await expect(page.locator('#content-area')).toContainText('Salzburg : Müller, 1992 - 188 Seiten');
+    await expect(page.locator('#detail')).toContainText('Medium');
+    await expect(page.locator('#detail')).toContainText('Buch');
+    await expect(page.locator('#detail')).toContainText('Titel');
+    await expect(page.locator('#detail')).toContainText('Antworten auf Georg Trakl / hrsg. von Adrien Finck ...');
+    await expect(page.locator('#detail')).toContainText('Beteiligt');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00000003"]')).toContainText('Finck, Adrien (1930-2008) [Herausgeber]');
+    await expect(page.locator('#detail')).toContainText('Erschienen');
+    await expect(page.locator('#detail')).toContainText('Salzburg : Müller, 1992');
+    await expect(page.locator('#detail')).toContainText('Umfang');
+    await expect(page.locator('#detail')).toContainText('188 Seiten');
+    await expect(page.locator('#detail')).toContainText('ISBN');
+    await expect(page.locator('#detail')).toContainText('3-7013-0839-X');
+    await expect(page.locator('#detail')).toContainText('Teil von');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/AK00000007"]')).toContainText('Trakl-Studien; 18');
+    await expect(page.locator('#detail')).toContainText('Digitales Objekt');
+    await expect(page.locator('#detail')).toContainText('Sprache');
+    await expect(page.locator('#detail')).toContainText('Deutsch');
+    await expect(page.locator('#detail')).toContainText('Inhalt');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/SE00026756"]')).toContainText('Trakl, Georg / A1.3 Sammelwerke');
+    await expect(page.locator('#detail')).toContainText('Prosa');
+    await expect(page.getByRole('term')).toContainText('Beziehungen');
+    await expect(page.getByRole('definition')).toContainText('Enthaltene Beiträge (');
+    await expect(page.locator('#detail').locator('.dd-').locator('a')).toBeVisible();
+
+    // BF
+    await page.goto('find/opac/id/BF00000010');
+    await expect(page.locator('#content-area')).toContainText('Ackerknecht, Erwin');
+    await expect(page.locator('#content-area')).toContainText('2 Kästen');
+    await expect(page.locator('#detail')).toContainText('Medienart');
+    await expect(page.locator('#detail')).toContainText('Gedrucktes');
+    await expect(page.locator('#detail')).toContainText('Bestandsart');
+    await expect(page.locator('#detail')).toContainText('Nachlass , Geschlossener Bestand der Mediendokumentation');
+    await expect(page.locator('#detail')).toContainText('Bestandsbildner');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/PE00046925"]')).toContainText('Ackerknecht, Erwin (1880-1960)');
+    await expect(page.locator('#detail')).toContainText('Sammlung');
+    await expect(page.locator('#detail')).toContainText('Mediendokumentation');
+    await expect(page.locator('#detail')).toContainText('Signatur');
+    await expect(page.locator('#detail')).toContainText('H:Ackerknecht, Erwin');
+    await expect(page.locator('#detail')).toContainText('Umfang');
+    await expect(page.locator('#detail')).toContainText('2 Kästen');
+    await expect(page.locator('#detail')).toContainText('Inhaltsangabe');
+    await expect(page.locator('#detail')).toContainText('Texte von und über Erwin Ackerknecht, sonstige Texte');
+    await expect(page.locator('#detail')).toContainText('Mediennummer');
+    await expect(page.locator('#detail')).toContainText('Texte von und über Erwin Ackerknecht, sonstige Texte');
+    await expect(page.locator('#detail')).toContainText('Mediennummer');
+    await expect(page.locator('#detail')).toContainText('BF000000109');
+    await expect(page.locator('#detail')).toContainText('Benutzungshinweis');
+    await expect(page.locator('#detail')).toContainText('Magazin Fellbach - Bitte 2 Wochen im Voraus bestellen! . benutzbar');
+    await expect(page.locator('#detail')).toContainText('Ordnung');
+    await expect(page.locator('#detail')).toContainText('vorgeordnet (2 Kästen)');
+    await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
+    await expect(page.locator('#detail')).toContainText('A -> Ackerknecht, Erwin (1880-1960) -> Nachlass, Mediendokumentation [H:Ackerknecht, Erwin]');
+
+    // Reiter Bestellen/Provenienz
+    // Die Detaildaten sind für den Test auch ohne Klick auf "Details & Benutzung" sichtbar
+    await page.goto('find/opac/id/AK00476246');
+    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
+    expect(await page.locator('#access').locator('.order-button').count()).toBe(13);
+    await expect(page.locator('#access')).toContainText('Signatur');
+    await expect(page.locator('#access')).toContainText('R.A.:1B/31:1923');
+    await expect(page.locator('#access')).toContainText('Zugangsnummer');
+    await expect(page.locator('#access')).toContainText('G89.2845');
+    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("G89.2845")')).not.toBeVisible();
+    await expect(page.locator('#access')).toContainText('In Bestand');
+    await expect(page.locator('#access').locator('a[href*="find/opac/id/BF00019164"]').first()).toContainText('G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
+    await expect(page.locator('#access')).toContainText('Beschreibung');
+    await expect(page.locator('#access')).toContainText('Mit hs. Widmung an Leopold von Schloezer');
+    await expect(page.locator('#access')).toContainText('Enthaltene Materialien');
+    await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)] O -> Obermüller, Paul (1899-1961) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
+    await expect(page.locator('#access')).toContainText('Benutzungshinweis');
+    await expect(page.locator('#access')).toContainText('nicht benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
+    await expect(page.locator('#access')).toContainText('bedingt benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
+    // Ein Treffer
+    await page.goto('find/opac/id/AK00000010');
+    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
+    await expect(page.locator('#access')).toContainText('Signatur');
+    await expect(page.locator('#access')).toContainText('LL (Trakl,Geo.)');
+    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("LL (Trakl,Geo.)")')).toBeVisible();
+    await expect(page.locator('#access')).toContainText('Zugangsnummer');
+    await expect(page.locator('#access')).toContainText('93.0186');
+    await expect(page.locator('#access')).toContainText('Beschreibung');
+    await expect(page.locator('#access')).toContainText('Beiträge katalogisiert');
+
+    // Mertens-Suche im rechten Bereich der Detailanzeige
+    await page.goto('find/opac/id/AK01779681');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Verfasser / Urheber');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Ähnliche Themen');
+    await page.goto('find/opac/id/AK01279668');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Verfasser / Urheber');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Bestandsbildner');
+    await page.goto('find/opac/id/BI00008813');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Künstler');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Ähnliche Motive');
+    await page.goto('find/opac/id/HS01159739');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Bestandsbildner');
+    await page.goto('find/opac/id/BF00000001');
+    await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Bestandsbildner');
+
+});
+
+
+
+// Ticket #5800
 test('normdaten', async ({ page }) => {
 
     // Werk
