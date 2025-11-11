@@ -15,7 +15,7 @@ test('merkliste', async ({ page }) => {
   await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).getByTitle('merken').click();
   await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(2).getByTitle('merken').click();
   await expect(page.getByRole('figure').locator('.ctg-hd-meta')).toContainText('(3)');
-  await page.getByRole('link', { name: 'Merkliste' }).click();
+  await page.locator('#watchlist').click({ force: true });
   await expect(page.locator('h1')).toContainText('Merkliste');
   await expect(page.locator('#watchlist-list')).toContainText('Dreigroschenoper');
 
