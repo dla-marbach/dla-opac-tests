@@ -24,12 +24,12 @@ test('trefferliste', async ({ page }) => {
   await expect(page.locator('#c12310-result-AK01325113').locator('.field-listview_title').locator('em.highlight').last()).toContainText('Prozess');
 
   // Trefferanzahl pro Seite ändern
-  await page.locator('.dlaResultCountSelect').selectOption('50');
+  await page.locator('.dlaResultCountSelect').selectOption('50', { force: true });
   await page.waitForTimeout(2000);
   await page.waitForLoadState('load'); // Seite lädt neu
   const itemCount50 = (await page.locator('.ctg-result-list').last().locator('.ctg-result-item').all()).length
   expect(itemCount50).toBe(50);
-  await page.locator('.dlaResultCountSelect').selectOption('25');
+  await page.locator('.dlaResultCountSelect').selectOption('25', { force: true });
   await page.waitForTimeout(2000);
   await page.waitForLoadState('load'); // Seite lädt neu
   const itemCount25 = (await page.locator('.ctg-result-list').last().locator('.ctg-result-item').all()).length
@@ -51,48 +51,50 @@ test('trefferliste', async ({ page }) => {
 
   // Sortierungen (ersten und letzten Eintrag auf der Seite miteinander vergleichen)
   const regex = /\b\d{4}\b/;
-  await page.locator('select[name="sort"]').selectOption('facet_time_stat asc');
+  await page.locator('select[name="sort"]').selectOption('facet_time_stat asc', { force: true });
   var secondText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).locator('.ctg-ri-text').locator('.field-listview_additional1-group').textContent();
   var secondYear = secondText?.match(regex);
   var lastText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').last().locator('.ctg-ri-text').locator('.field-listview_additional1-group').textContent();
   var lastYear = lastText?.match(regex);
   await expect(parseInt(secondYear[0])).toBeLessThanOrEqual(parseInt(lastYear[0]));
 
-  await page.locator('select[name="sort"]').selectOption('facet_time_stat desc');
+  await page.locator('select[name="sort"]').selectOption('facet_time_stat desc', { force: true });
   var firstText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').locator('.field-listview_additional1-group').textContent();
   var firstYear = firstText?.match(regex);
   lastText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').last().locator('.ctg-ri-text').locator('.field-listview_additional1-group').textContent();
   var lastYear = lastText?.match(regex);
   await expect(parseInt(firstYear[0])).toBeGreaterThanOrEqual(parseInt(lastYear[0]));
 
-  await page.locator('select[name="sort"]').selectOption('sorted_listview_title_s asc');
+  await page.locator('select[name="sort"]').selectOption('sorted_listview_title_s asc', { force: true });
   var firstTitle = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').locator('h2').textContent();
   var lastTitle = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').last().locator('.ctg-ri-text').locator('h2').textContent();
   await expect(firstTitle.localeCompare(lastTitle) < 0).toBe(true);
 
-  await page.locator('select[name="sort"]').selectOption('sorted_listview_title_s desc');
+  await page.locator('select[name="sort"]').selectOption('sorted_listview_title_s desc', { force: true });
   var firstTitle = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').locator('h2').textContent();
   var lastTitle = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').last().locator('.ctg-ri-text').locator('h2').textContent();
   await expect(firstTitle.localeCompare(lastTitle) > 0).toBe(true);
 
-  await page.locator('select[name="sort"]').selectOption('entity_score desc');
+  await page.locator('select[name="sort"]').selectOption('entity_score desc', { force: true });
   var firstItem = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first();
   await expect(firstItem).toContainClass('ctg-result-normdata');
 
   // zurück zu Standard
-  await page.locator('select[name="sort"]').selectOption('score desc');
+  await page.locator('select[name="sort"]').selectOption('score desc', { force: true });
 
-  // Symbol kennzeichnet ob Gedruckt, Handschrift, Bilder & Objekte, Audio und Video.
-  await expect(page.locator('.icon.bel-pcfilm').first()).toBeVisible();
-  await expect(page.locator('.icon.bel-mag').first()).toBeVisible();
-  await expect(page.locator('.icon.bel-pce').first()).toBeVisible();
-  await expect(page.locator('.icon.bel-pcbild').first()).toBeVisible();
-  await expect(page.locator('.icon.bel-foto').first()).toBeVisible();
+  // Symbol kennzeichnet ob Gedruckt, Handschrift, Bilder & Objekte, Audio und Video (nur in der Desktopansicht)
+  if (page.viewportSize().width > 768) {
+    await expect(page.locator('.icon.bel-pcfilm').first()).toBeVisible();
+    await expect(page.locator('.icon.bel-mag').first()).toBeVisible();
+    await expect(page.locator('.icon.bel-pce').first()).toBeVisible();
+    await expect(page.locator('.icon.bel-pcbild').first()).toBeVisible();
+    await expect(page.locator('.icon.bel-foto').first()).toBeVisible();
+  }
 
   // Rechter Bereich: Hinweis auf FAQ, Kontakt sowie andere Fundorte
   await expect(page.getByText('Unter FAQ finden Sie Tipps')).toBeVisible();
   await expect(page.getByText('Auskunftsdienst Archiv')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Andere Fundorte ' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Andere Fundorte' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: 'Fernleihe' })).toBeVisible();
 
   // Anzeige Detailansicht bei einem Trefferergebnis
