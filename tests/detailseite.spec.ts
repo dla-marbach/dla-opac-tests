@@ -124,36 +124,6 @@ test('detailseite', async ({ page }) => {
     await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
     await expect(page.locator('#detail')).toContainText('A -> Ackerknecht, Erwin (1880-1960) -> Nachlass, Mediendokumentation [H:Ackerknecht, Erwin]');
 
-    // Reiter Bestellen/Provenienz
-    // Die Detaildaten sind für den Test auch ohne Klick auf "Details & Benutzung" sichtbar
-    await page.goto('find/opac/id/AK00476246');
-    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
-    expect(await page.locator('#access').locator('.order-button').count()).toBe(13);
-    await expect(page.locator('#access')).toContainText('Signatur');
-    await expect(page.locator('#access')).toContainText('R.A.:1B/31:1923');
-    await expect(page.locator('#access')).toContainText('Zugangsnummer');
-    await expect(page.locator('#access')).toContainText('G89.2845');
-    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("G89.2845")')).not.toBeVisible();
-    await expect(page.locator('#access')).toContainText('In Bestand');
-    await expect(page.locator('#access').locator('a[href*="find/opac/id/BF00019164"]').first()).toContainText('G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
-    await expect(page.locator('#access')).toContainText('Beschreibung');
-    await expect(page.locator('#access')).toContainText('Mit hs. Widmung an Leopold von Schloezer');
-    await expect(page.locator('#access')).toContainText('Enthaltene Materialien');
-    await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)] O -> Obermüller, Paul (1899-1961) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
-    await expect(page.locator('#access')).toContainText('Benutzungshinweis');
-    await expect(page.locator('#access')).toContainText('nicht benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
-    await expect(page.locator('#access')).toContainText('bedingt benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
-    // Ein Treffer
-    await page.goto('find/opac/id/AK00000010');
-    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
-    await expect(page.locator('#access')).toContainText('Signatur');
-    await expect(page.locator('#access')).toContainText('LL (Trakl,Geo.)');
-    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("LL (Trakl,Geo.)")')).toBeVisible();
-    await expect(page.locator('#access')).toContainText('Zugangsnummer');
-    await expect(page.locator('#access')).toContainText('93.0186');
-    await expect(page.locator('#access')).toContainText('Beschreibung');
-    await expect(page.locator('#access')).toContainText('Beiträge katalogisiert');
-
     // Mertens-Suche im rechten Bereich der Detailanzeige
     await page.goto('find/opac/id/AK01779681');
     await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Verfasser / Urheber');
@@ -364,10 +334,41 @@ test('normdaten', async ({ page }) => {
 
 
 
-// Ticket #5802
+// Ticket #5800 + #5802
 test('bestellung', async ({ page }) => {
 
-    // Vorbereitung
+    // Daten im Reiter Bestellen/Provenienz
+    // Die Detaildaten sind für den Test auch ohne Klick auf "Details & Benutzung" sichtbar
+    await page.goto('find/opac/id/AK00476246');
+    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
+    expect(await page.locator('#access').locator('.order-button').count()).toBe(13);
+    await expect(page.locator('#access')).toContainText('Signatur');
+    await expect(page.locator('#access')).toContainText('R.A.:1B/31:1923');
+    await expect(page.locator('#access')).toContainText('Zugangsnummer');
+    await expect(page.locator('#access')).toContainText('G89.2845');
+    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("G89.2845")')).not.toBeVisible();
+    await expect(page.locator('#access')).toContainText('In Bestand');
+    await expect(page.locator('#access').locator('a[href*="find/opac/id/BF00019164"]').first()).toContainText('G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
+    await expect(page.locator('#access')).toContainText('Beschreibung');
+    await expect(page.locator('#access')).toContainText('Mit hs. Widmung an Leopold von Schloezer');
+    await expect(page.locator('#access')).toContainText('Enthaltene Materialien');
+    await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)] O -> Obermüller, Paul (1899-1961) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
+    await expect(page.locator('#access')).toContainText('Benutzungshinweis');
+    await expect(page.locator('#access')).toContainText('nicht benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
+    await expect(page.locator('#access')).toContainText('bedingt benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
+    
+    // Ein Treffer
+    await page.goto('find/opac/id/AK00000010');
+    await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
+    await expect(page.locator('#access')).toContainText('Signatur');
+    await expect(page.locator('#access')).toContainText('LL (Trakl,Geo.)');
+    await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("LL (Trakl,Geo.)")')).toBeVisible();
+    await expect(page.locator('#access')).toContainText('Zugangsnummer');
+    await expect(page.locator('#access')).toContainText('93.0186');
+    await expect(page.locator('#access')).toContainText('Beschreibung');
+    await expect(page.locator('#access')).toContainText('Beiträge katalogisiert');
+
+    // Bestellstatus
     await page.goto('katalog');
     await page.locator('#token-input-c-field-').fill('Rilke duineser elegien 1923');
     await page.getByRole('button', { name: 'Jetzt suchen' }).click();
