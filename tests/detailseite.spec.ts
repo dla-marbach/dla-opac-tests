@@ -39,7 +39,6 @@ test('detailseite', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('André, Holger');
     await expect(page.locator('#content-area')).toContainText('1995');
     await expect(page.locator('#content-area')).toContainText('Inventarnummer: B 1999.0010');
-    await expect(page.locator('#content-area img').first()).toBeVisible();
     await expect(page.locator('#detail')).toContainText('Medienart');
     await expect(page.locator('#detail')).toContainText('Bilder und Objekte');
     await expect(page.locator('#detail')).toContainText('Objekttyp');

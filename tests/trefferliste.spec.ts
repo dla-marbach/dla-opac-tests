@@ -77,7 +77,7 @@ test('trefferliste', async ({ page }) => {
 
   await page.locator('select[name="sort"]').selectOption('entity_score desc', { force: true });
   var firstItem = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first();
-  await expect(firstItem).toContainClass('ctg-result-normdata');
+  await expect(firstItem).toHaveClass('ctg-result-item ctg-result-normdata');
 
   // zurück zu Standard
   await page.locator('select[name="sort"]').selectOption('score desc', { force: true });
