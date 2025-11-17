@@ -4,6 +4,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
+  timeout: 45_000,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
@@ -17,7 +18,7 @@ export default defineConfig({
   use: {
     /* Collect trace. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    baseURL: 'http://www.dla-marbach.de/'
+    baseURL: 'https://www.dla-marbach.de/'
   },
 
   /* Configure projects for browsers */
