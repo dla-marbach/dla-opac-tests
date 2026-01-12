@@ -18,7 +18,7 @@ export default defineConfig({
   use: {
     /* Collect trace. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-    baseURL: 'https://www.dla-marbach.de/'
+    baseURL: process.env.BASE_URL || 'https://www.dla-marbach.de/'
   },
 
   /* Configure projects for browsers */

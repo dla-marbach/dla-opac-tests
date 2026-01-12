@@ -6,7 +6,6 @@ const path = require('path');
 test('merkliste', async ({ page }) => {
 
   await page.goto('katalog');
-  await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').fill('Dreigroschenoper');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
 

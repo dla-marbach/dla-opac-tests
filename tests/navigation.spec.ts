@@ -4,7 +4,6 @@ import { test, expect } from '@playwright/test';
 test('navigation', async ({ page, baseURL }) => {
   // Vorbereitung
   await page.goto('katalog');
-  await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').fill('Gottfried Benn');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
 
