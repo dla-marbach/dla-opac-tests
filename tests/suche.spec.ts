@@ -100,7 +100,7 @@ test('erweiterteSuche', async ({ page }) => {
   await page.locator('#extended-search-input-1').fill('Das doppelte Lottchen');
   await page.locator('#extended-search-input-2').fill('2000-01-01');
   await page.waitForTimeout(1000);
-  await page.locator('#extended-search-input-1').click(); // Datumspicker "Von" nicht mehr anzeigen
+  await page.locator('#extended-search-input-1').click({ force: true }); // Datumspicker "Von" nicht mehr anzeigen
   // "Zeit/Datum Bis" setzen 
   await page.locator('#extended-search-input-3').click();
   await page.locator('.xdsoft_calendar').getByRole('cell', { name: '20' }).locator('div').click(); // Datum über Datumspicker setzen
