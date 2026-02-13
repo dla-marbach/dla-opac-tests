@@ -7,7 +7,7 @@ test('teaserSuchsyntax', async ({ page, baseURL }) => {
   await page.goto('katalog');
   var url = baseURL?.replaceAll('.', "\\.");
   const regex = new RegExp(
-    `^${url}index\\.php\\?id=1600(&tx_find_find((\\[|%5B)[^&]+(\\]|%5D))+=[^&]+)+$|^${url}find/opac/id/PE\\d{8}$`
+    `^.+\\.dla-marbach\\.de/index\\.php\\?id=1600(&tx_find_find((\\[|%5B)[^&]+(\\]|%5D))+=[^&]+)+$|^.+\\.dla-marbach\\.de/find/opac/id/(PE|BI)\\d{8}(/)?$`
   );
 
   const teaserElements = page.locator('.ctg-text-teaser');

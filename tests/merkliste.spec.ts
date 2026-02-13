@@ -6,15 +6,14 @@ const path = require('path');
 test('merkliste', async ({ page }) => {
 
   await page.goto('katalog');
-  await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').fill('Dreigroschenoper');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
 
   // Titel in Merkliste einstellen mit Sternbutton
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().getByTitle('merken').click();
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).getByTitle('merken').click();
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(2).getByTitle('merken').click();
-  await expect(page.getByRole('figure').locator('.ctg-hd-meta')).toContainText('(3)');
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.add-watchlist-button').click({ force: true });
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).locator('.add-watchlist-button').click({ force: true });
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(2).locator('.add-watchlist-button').click({ force: true });
+  await expect(page.locator('.watchlist-counter')).toContainText('(3)');
   await page.locator('#watchlist').click({ force: true });
   await expect(page.locator('h1')).toContainText('Merkliste');
   await expect(page.locator('#watchlist-list')).toContainText('Dreigroschenoper');
