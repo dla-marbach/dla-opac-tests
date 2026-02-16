@@ -1,43 +1,13 @@
 # Automatisierte Tests des Katalogs des DLA Marbach mit Playwright
 
-## Tests mit GitHub Actions ausführen
+## Ausführung der Tests
 
-[![Github Actions Workflow](https://github.com/opencultureconsulting/dla-opac-tests/actions/workflows/playwright.yml/badge.svg)](https://github.com/opencultureconsulting/dla-opac-tests/actions/workflows/playwright.yml)
+Die Tests werden im DLA automatisiert täglich ausgeführt. Hierbei wird sowohl das Produktiv- als auch das Testsystem getestet. Die Ausführung erfolgt in einem dafür erstellten Dockercontainer (siehe [Dockerfile](Dockerfile)).
 
-Die Konfigurationsdateien für die Tests liegen im Ordner [tests](tests). Weitere Testdateien dort ablegen und sie werden automatisch berücksichtigt.
+Die Testdateien liegen im Ordner [tests](tests). Werden weitere Dateien dort abgelegt, werden sie bei der Ausführung automatisch berücksichtigt.
 
-## Testergebnisse in Playwright Trace Viewer
+Die Konfiguration der Testausführung ist in [playwright.config.js](playwright.config.js) zu finden, inklusive der baseURL für die Anpassung des zu testenden Systems.
 
-### Neuester Test
-
-Dateien liegen im Ordner [test-results](test-results) und können über den "Trace Viewer" geprüft werden. Hier eine manuell erstellte Übersicht (ggf. zu aktualisieren):
-
-| Datei    | Testname           | Trace Viewer |
-| -------- | ------------------ | ------------ |
-| suche    | ricarda-huch       | [desktop](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/suche-ricarda-huch-desktop/trace.zip), [mobile](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/suche-ricarda-huch-mobile/trace.zip) |
-| facetten    | schillerplatz       | [desktop](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/facetten-schillerplatz-desktop/trace.zip), [mobile](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/facetten-schillerplatz-mobile/trace.zip) |
-| detail   | kafka              | [desktop](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/detail-kafka-desktop/trace.zip), [mobile](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/detail-kafka-mobile/trace.zip) |
-| bestandsübersicht   | kafka              | [desktop](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/bestandsübersicht-kafka-desktop/trace.zip), [mobile](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/bestandsübersicht-kafka-mobile/trace.zip) |
-| datendienst   | fields              | [desktop](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/datendienst-fields-desktop/trace.zip), [mobile](https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/refs/heads/main/test-results/datendienst-fields-mobile/trace.zip) |
-
-### Ältere Tests
-
-Testergebnisse für einzelne Commits können wie folgt aufgerufen werden:
-
-https://trace.playwright.dev/?trace=https://raw.githubusercontent.com/opencultureconsulting/dla-opac-tests/de37bfc/test-results/suche-ricarda-huch-desktop/trace.zip
-
-* commit hash "de37bfc" ersetzen
-* testname "suche-ricarda-huch" ggf. ersetzen
-* device "desktop" ggf. durch "mobile" ersetzen
-
-## Entwkicklung in GitHub Codespaces
-
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/opencultureconsulting/dla-opac-tests)
-
-```
-npx playwright test --reporter html
-npx playwright show-report
-```
 
 ## Entwicklung lokal mit Visual Studio Code
 
@@ -48,4 +18,11 @@ npm i --save-dev @playwright/test
 npx playwright install chromium --with-deps
 ```
 
-Zum Testen des Testsystems die baseURL in [playwright.config.js](playwright.config.js) anpassen.
+## Entwicklung in GitHub Codespaces
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/opencultureconsulting/dla-opac-tests)
+
+```
+npx playwright test --reporter html
+npx playwright show-report
+```
