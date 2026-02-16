@@ -93,7 +93,7 @@ test('trefferliste', async ({ page }) => {
 
   // Rechter Bereich: Hinweis auf FAQ, Kontakt sowie andere Fundorte
   await expect(page.getByText('Unter FAQ finden Sie Tipps')).toBeVisible();
-  await expect(page.getByText('Auskunftsdienst Archiv')).toBeVisible();
+  await expect(page.getByText('Auskunftsdienst Bibliothek')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Andere Fundorte' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: 'Fernleihe' })).toBeVisible();
 

@@ -159,7 +159,7 @@ test('normdaten', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('Form des Werks');
     await expect(page.locator('#content-area')).toContainText('Roman');
     await expect(page.locator('#content-area')).toContainText('Zeit');
-    await expect(page.locator('#content-area')).toContainText('Erscheinungsjahr:1925 Entstehungsjahr:1914-1915');
+    await expect(page.locator('#content-area')).toContainText('Entstehung/Produktion:1925 Entstehungsjahr:1914-1915');
     await expect(page.locator('#content-area')).toContainText('Sprache');
     await expect(page.locator('#content-area')).toContainText('Deutsch');
     await expect(page.locator('#content-area')).toContainText('Quelle');
@@ -354,7 +354,7 @@ test('bestellung', async ({ page }) => {
     await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)] O -> Obermüller, Paul (1899-1961) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
     await expect(page.locator('#access')).toContainText('Benutzungshinweis');
     await expect(page.locator('#access')).toContainText('nicht benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
-    await expect(page.locator('#access')).toContainText('bedingt benutzbarBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
+    await expect(page.locator('#access')).toContainText('bedingt benutzbarRara-BestandBitte wenden Sie sich an die Auskunft der Bibliothek.E-Mail: bibliothek@dla-marbach.deTelefon: +49 7144 848 317');
     
     // Ein Treffer
     await page.goto('find/opac/id/AK00000010');
