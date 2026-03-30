@@ -299,7 +299,7 @@ test('normdaten', async ({ page }) => {
     expect(await page.locator('#content-area').locator('a:text("Bestände")').count()).toBe(1);
 
     // Deskriptor - Sachschlagwort
-    await page.goto('https://www.dla-marbach.de/find/opac/id/TH00038793/?tx_find_find%5Baction%5D=detail&tx_find_find%5Bcontroller%5D=Search&tx_find_find%5BqParam%5D=1&cHash=d659647638f4fbb4f86065ef74f34894');
+    await page.goto('https://www.dla-marbach.de/find/opac/id/TH00038793/?tx_find_find%5Baction%5D=detail&tx_find_find%5Bcontroller%5D=Search&tx_find_find%5BqParam%5D=1');
     await expect(page.locator('#content-area')).toContainText('Deskriptor. - Sachschlagwort');
     await page.getByText('Weitere Details').click();
     await expect(page.locator('#content-area')).toContainText('Sachschlagwort');
