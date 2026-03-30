@@ -6,7 +6,7 @@ test('teaserSuchsyntax', async ({ page, baseURL }) => {
   // Vorbereitung
   await page.goto('katalog');
   const regex = new RegExp(
-    `^.+\\.dla-marbach\\.de/index\\.php\\?id=1600(&tx_find_find[^&]+=[^&]+)*$|^.+\\.dla-marbach\\.de/find/opac/id/(PE|BI)\\d{8}(/)?$`
+    `^.+\\.dla-marbach\\.de/find/?(tx_find_find[^&]+=[^&]+)*$|^.+\\.dla-marbach\\.de/find/opac/id/(PE|BI)\\d{8}(/)?$`
   );
 
   const teaserElements = page.locator('.ctg-text-teaser');
