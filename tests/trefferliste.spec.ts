@@ -218,7 +218,7 @@ test.describe('Facetten', () => {
   test('suchbegriff', async ({ page }) => {
     await prepareFacetten(page);
 
-    // erneute Suche löscht die Filterung - funktioniert aktuell nicht
+    // erneute Suche löscht die Filterung
     await page.locator('.token-input-input-token').locator('input').fill('Goethe');
     await page.getByRole('button', { name: 'Jetzt suchen' }).click();
     await expect(page.getByRole('heading', { name: 'Aktive Facetten' })).toBeHidden();
