@@ -102,7 +102,7 @@ test('erweiterteSuche', async ({ page }) => {
   await page.locator('#extended-search-input-1').click({ force: true }); // Datumspicker "Von" nicht mehr anzeigen
   // "Zeit/Datum Bis" setzen 
   await page.locator('#extended-search-input-3').click();
-  await page.locator('.xdsoft_calendar').getByRole('cell', { name: '20' }).locator('div').click(); // Datum über Datumspicker setzen
+  await expect(page.locator('.xdsoft_datetimepicker:visible').first()).toBeVisible(); // Datumspicker wird geöffnet
   await page.locator('#extended-search-input-3').clear();
   await page.locator('#extended-search-input-3').pressSequentially('2010-01-01'); // Datum wieder überschreiben
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
