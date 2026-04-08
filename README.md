@@ -8,6 +8,7 @@ Die Testdateien liegen im Ordner [tests](tests). Werden weitere Dateien dort abg
 
 Die Konfiguration der Testausführung ist in [playwright.config.js](playwright.config.js) zu finden, inklusive der baseURL für die Anpassung des zu testenden Systems.
 
+Das Produktivsystem erlaubt nur eine geringe Anzahl an Zugriffen pro Minute, daher schlagen Tests aus externen Netzen oft beim ersten Lauf fehl.
 
 ## Entwicklung lokal mit Visual Studio Code
 
