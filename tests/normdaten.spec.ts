@@ -32,7 +32,7 @@ test('Werk', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('Mögliche weitere Treffer');
 });
 
-test('Person', async ({ page }) => {
+test('PE', async ({ page }) => {
     await page.goto('find/opac/id/PE00001005');
     await page.getByText('Weitere Details').click();
     await expect(page.locator('#content-area')).toContainText('Medienart');
@@ -84,7 +84,7 @@ test('Person', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('über Kafka, Franz ...');
 });
 
-test('Körperschaft', async ({ page }) => {
+test('KS', async ({ page }) => {
     await page.goto('find/opac/id/KS00000004');
     await expect(page.locator('#content-area')).toContainText('Körperschaft');
     await page.getByText('Weitere Details').click();
@@ -111,7 +111,7 @@ test('Körperschaft', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('Mögliche weitere Treffer');
 });
 
-test('Deskriptor geographisch/ethnisch', async ({ page }) => {
+test('Ort', async ({ page }) => {
     await page.goto('find/opac/id/TH00019888');
     await expect(page.locator('#content-area')).toContainText('Deskriptor. - geographisches/ethnisches Schlagwort');
     await page.getByText('Weitere Details').click();
@@ -140,7 +140,7 @@ test('Deskriptor geographisch/ethnisch', async ({ page }) => {
     await expect(page.locator('#content-area')).toContainText('Schlagwort Marbach am Neckar ...');
 });
 
-test('Deskriptor Sachschlagwort', async ({ page }) => {
+test('Sachschlagwort', async ({ page }) => {
     await page.goto('find/opac/id/TH00038793');
     await expect(page.locator('#content-area')).toContainText('Deskriptor. - Sachschlagwort');
     await page.getByText('Weitere Details').click();

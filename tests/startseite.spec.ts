@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5806
-test('teaserSuchsyntax', async ({ page, baseURL }) => {
+test('Teaser', async ({ page, baseURL }) => {
 
   // Vorbereitung
   await page.goto('katalog');
@@ -27,7 +27,7 @@ test('teaserSuchsyntax', async ({ page, baseURL }) => {
 
 
 // Ticket #8387
-test('startseite', async ({ page }) => {
+test('Startseite', async ({ page }) => {
 
   await page.goto('katalog');
   await expect(page.getByRole('banner')).toContainText('Katalog');

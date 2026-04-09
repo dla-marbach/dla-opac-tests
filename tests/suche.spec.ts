@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5796
-test('suchschlitz', async ({ page }) => {
+test('Suchschlitz', async ({ page }) => {
 
   await page.goto('katalog');
   await page.locator('#token-input-c-field-').pressSequentially('dür');
@@ -75,7 +75,7 @@ test('suchschlitz', async ({ page }) => {
 
 
 // #5797
-test.skip('erweiterteSuche', async ({ page }) => {
+test.skip('Erweiterte Suche', async ({ page }) => {
 
   await page.goto('katalog');
   await page.getByRole('link', { name: 'Erweiterte Suche' }).click();

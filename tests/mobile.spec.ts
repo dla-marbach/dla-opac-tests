@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5801
-test('bildschirmnutzung', async ({ page }) => {
+test('Bildschirmnutzung', async ({ page }) => {
 
   // Vorbereitung
   await page.goto('katalog');

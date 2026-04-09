@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5800
-test('Handschriften', async ({ page }) => {
+test('HS', async ({ page }) => {
     await page.goto('find/opac/id/HS00000010');
     await expect(page.locator('#detail')).toContainText('Medienart');
     await expect(page.locator('#detail')).toContainText('Handschriften');
@@ -32,7 +32,7 @@ test('Handschriften', async ({ page }) => {
     /// await expect(page.locator('#detail')).toContainText('Teilnachlass, Handschriften [A:Uhland, Ludwig]');
 });
 
-test('Bilder und Objekte', async ({ page }) => {
+test('BI', async ({ page }) => {
     await page.goto('find/opac/id/BI00000010');
     await expect(page.locator('#content-area')).toContainText('André, Holger');
     await expect(page.locator('#content-area')).toContainText('1995');
@@ -118,7 +118,7 @@ test('BF', async ({ page }) => {
     /// await expect(page.locator('#detail')).toContainText('A -> Ackerknecht, Erwin (1880-1960) -> Nachlass, Mediendokumentation [H:Ackerknecht, Erwin]');
 });
 
-test('Mertens-Suche rechter Bereich', async ({ page }) => {
+test('Mertens-Suche', async ({ page }) => {
     await page.goto('find/opac/id/AK01779681');
     await expect(page.locator('.ctg-facet-colum')).toContainText('Vom selben Verfasser / Urheber');
     await expect(page.locator('.ctg-facet-colum')).toContainText('Ähnliche Themen');

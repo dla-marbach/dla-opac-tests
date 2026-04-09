@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5800 + #5802
-test('Bestellen/Provenienz mit mehreren Exemplaren', async ({ page }) => {
+test('Exemplare', async ({ page }) => {
     // Daten im Reiter Bestellen/Provenienz
     // Die Detaildaten sind für den Test auch ohne Klick auf "Details & Benutzung" sichtbar
     await page.goto('find/opac/id/AK00476246');
@@ -24,7 +24,7 @@ test('Bestellen/Provenienz mit mehreren Exemplaren', async ({ page }) => {
     await expect(page.locator('#access')).toContainText('bedingt benutzbar');
 });
 
-test('Bestellen/Provenienz mit einem Treffer', async ({ page }) => {
+test('Exemplar', async ({ page }) => {
     await page.goto('find/opac/id/AK00000010');
     await page.getByRole('link', { name: 'Bestellen/Provenienz' }).click();
     await expect(page.locator('#access')).toContainText('Signatur');

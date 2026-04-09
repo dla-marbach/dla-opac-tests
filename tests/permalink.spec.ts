@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #7058
-test('permalink', async ({ page }) => {
+test('Permalink', async ({ page }) => {
 
   // Permalink Normdatum
   await page.goto('find/opac/id/PE00001005');

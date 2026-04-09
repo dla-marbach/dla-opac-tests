@@ -6,7 +6,7 @@ export default defineConfig({
   fullyParallel: true,
   timeout: 45_000,
   retries: 0,
-  workers: 4,
+  workers: 1,
   // Keep default output and always use a fixed 1000ms pause after each test.
   reporter: [
     [process.env.CI ? 'github' : 'list'],

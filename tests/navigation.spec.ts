@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5799
-test('navigation', async ({ page, baseURL }) => {
+test('Navigation', async ({ page, baseURL }) => {
   // Vorbereitung
   await page.goto('katalog');
   await page.locator('#token-input-c-field-').fill('Gottfried Benn');

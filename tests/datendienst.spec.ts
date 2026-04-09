@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('fields', async ({ page }) => {
+test('Feldauswahl', async ({ page }) => {
   await page.goto('https://dataservice.dla-marbach.de/');
   // Öffne Endpunkt /records
   await page.getByRole('button', { name: 'GET /records', exact: true }).click({ force: true });

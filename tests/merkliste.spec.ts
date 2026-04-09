@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Ticket #5805
-test('merkliste', async ({ page }) => {
+test('Merkliste', async ({ page }) => {
 
   await page.goto('katalog');
   await page.locator('#token-input-c-field-').fill('Dreigroschenoper');
