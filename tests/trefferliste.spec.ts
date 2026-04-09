@@ -13,7 +13,7 @@ test.describe('Trefferliste', () => {
     // zwei Normdaten mit den meisten Verknüpfungen an erster Position
     await expect(page.locator('.ctg-result-list').first().locator('.ctg-result-item.ctg-result-normdata').first()).toBeVisible();
     await expect(page.locator('.ctg-result-list').first()).toContainText('Kafka, Franz (1883-1924)');
-    await expect(page.locator('.ctg-result-list').first()).toContainText('Kafka, Franz <1883-1924>. Der Prozess (Roman : 1925)');
+    await expect(page.locator('.ctg-result-list').first()).toContainText('Kafka, Franz (1883-1924). Der Prozess (Roman : 1925)');
     await expect(page.locator('.ctg-result-list').first()).toContainText('Tipp: Relevante Namen & Werke');
 
     // Suchbegriffe in der Trefferliste rot hervorgehoben (beim ersten Treffer "Kafka - der letzte Prozess")
