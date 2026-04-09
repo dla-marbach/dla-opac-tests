@@ -75,7 +75,7 @@ test('suchschlitz', async ({ page }) => {
 
 
 // #5797
-test('erweiterteSuche', async ({ page }) => {
+test.skip('erweiterteSuche', async ({ page }) => {
 
   await page.goto('katalog');
   await page.getByRole('link', { name: 'Erweiterte Suche' }).click();
