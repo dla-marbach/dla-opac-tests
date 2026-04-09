@@ -95,8 +95,9 @@ test('Icons', async ({ page }) => {
   if (page.viewportSize().width > 768) {
     await expect(page.locator('.icon.bel-pcfilm').first()).toBeVisible();
     await expect(page.locator('.icon.bel-mag').first()).toBeVisible();
-    await expect(page.locator('.icon.bel-pce').first()).toBeVisible();
-    await expect(page.locator('.icon.bel-pcbild').first()).toBeVisible();
+    // auskommentiert weil die Icons auf der Trefferliste wegen geändertem Relevanzranking nicht vorkommen
+    // await expect(page.locator('.icon.bel-pce').first()).toBeVisible();
+    // await expect(page.locator('.icon.bel-pcbild').first()).toBeVisible();
     await expect(page.locator('.icon.bel-foto').first()).toBeVisible();
   }
 });
