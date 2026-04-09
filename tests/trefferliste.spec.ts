@@ -104,7 +104,7 @@ test('Icons', async ({ page }) => {
 test('Rechter Bereich', async ({ page }) => {
   // Rechter Bereich: Hinweis auf FAQ, Kontakt sowie andere Fundorte
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
-  await expect(page.getByText('Unter FAQ finden Sie Tipps')).toBeVisible();
+  await expect(page.getByText('finden Sie Tipps zur Suche.')).toBeVisible();
   await expect(page.getByText('Auskunftsdienst Bibliothek')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Andere Fundorte' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: 'Fernleihe' })).toBeVisible();
