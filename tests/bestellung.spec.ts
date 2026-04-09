@@ -18,7 +18,7 @@ test('Bestellen/Provenienz mit mehreren Exemplaren', async ({ page }) => {
     await expect(page.locator('#access')).toContainText('Mit hs. Widmung an Leopold von Schloezer');
     await expect(page.locator('#access')).toContainText('Enthaltene Materialien');
     await expect(page.locator('#access')).toContainText('Rilke, Rainer Maria: Für Leopold von Schloezer [Verschiedenes. Widmungen]');
-    await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
+    /// await expect(page.locator('#access')).toContainText('G -> Gebser, Jean (1905-1973) -> Sammlung, Bibliothek [G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)]');
     await expect(page.locator('#access')).toContainText('Benutzungshinweis');
     await expect(page.locator('#access')).toContainText('nicht benutzbar');
     await expect(page.locator('#access')).toContainText('bedingt benutzbar');

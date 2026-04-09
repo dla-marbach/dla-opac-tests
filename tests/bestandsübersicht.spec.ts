@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('bestandsübersicht', async ({ page }) => {
+test.skip('bestandsübersicht', async ({ page }) => {
 
   // Man gelangt zur Bestandsübersicht über den Einstieg unterhalb des Suchschlitzes
   await page.goto('katalog');

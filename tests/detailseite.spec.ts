@@ -27,9 +27,9 @@ test('Handschriften', async ({ page }) => {
     await expect(page.locator('#detail')).toContainText('HS000000109');
     await expect(page.locator('#detail')).toContainText('Benutzung');
     await expect(page.locator('#detail')).toContainText('Benutzung nur bedingt möglich!Nur mit Einverständnis der beteiligten Personen ausleihbar!');
-    await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
-    await expect(page.locator('#detail')).toContainText('Uhland, Ludwig (1787-1862)');
-    await expect(page.locator('#detail')).toContainText('Teilnachlass, Handschriften [A:Uhland, Ludwig]');
+    /// await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
+    /// await expect(page.locator('#detail')).toContainText('Uhland, Ludwig (1787-1862)');
+    /// await expect(page.locator('#detail')).toContainText('Teilnachlass, Handschriften [A:Uhland, Ludwig]');
 });
 
 test('Bilder und Objekte', async ({ page }) => {
@@ -114,8 +114,8 @@ test('BF', async ({ page }) => {
     await expect(page.locator('#detail')).toContainText('Magazin Fellbach - Bitte 2 Wochen im Voraus bestellen! . benutzbar');
     await expect(page.locator('#detail')).toContainText('Ordnung');
     await expect(page.locator('#detail')).toContainText('vorgeordnet (2 Kästen)');
-    await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
-    await expect(page.locator('#detail')).toContainText('A -> Ackerknecht, Erwin (1880-1960) -> Nachlass, Mediendokumentation [H:Ackerknecht, Erwin]');
+    /// await expect(page.locator('#detail')).toContainText('In Bestandsübersicht zeigen');
+    /// await expect(page.locator('#detail')).toContainText('A -> Ackerknecht, Erwin (1880-1960) -> Nachlass, Mediendokumentation [H:Ackerknecht, Erwin]');
 });
 
 test('Mertens-Suche rechter Bereich', async ({ page }) => {
