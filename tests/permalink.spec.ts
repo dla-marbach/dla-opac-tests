@@ -14,7 +14,7 @@ test('Permalink', async ({ page }) => {
   await expect(page.locator('h2')).toContainText('Der Briefwechsel Hofmannsthal - Wildgans - Erg. und verb. Neudr. : [Brief(e)]');
 
   // Permalink Exemplare
-  await page.goto('find/opac/id/AK00364083/?tx_find_find[au]=01064573#tabaccess');
+  await page.goto('find/opac/id/AK00364083/?tx_find_find[au]=AU01064573#tabaccess');
   await expect(page.getByText('Exemplar', { exact: true })).toBeVisible();
   const info = page.locator('div.au-highlighting.aukey-row-info');
   await expect(info).toContainText('Steiner, Herbert (1892-1966)');
