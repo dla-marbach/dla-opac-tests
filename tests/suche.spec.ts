@@ -91,7 +91,7 @@ test.skip('Erweiterte Suche', async ({ page }) => {
   expect(firstText).toContain('Kästner');
   expect(firstText).toContain('Das doppelte Lottchen');
   var firstYear = firstText?.match(regex);
-  //expect(firstYear).toBeUndefined(); // Fehler in der Programmierung, es werden Treffer auch mit Datum angezeigt
+  expect(firstYear).toBeUndefined();
 
   // Zeit/Datum Von / Bis: öffnet Datumspicker, dieser kann auch durch direkte Eingaben überschrieben werden oder Auswahl korrigiert werden
   await page.goto('katalog');
