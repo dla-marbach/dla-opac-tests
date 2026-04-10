@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5804
-test('Facetten', async ({ page }) => {
+test('Facetten Basis', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // erste 3 Facetten sind aufgeklappt: Medientyp, Form und Inhalt, Medium
