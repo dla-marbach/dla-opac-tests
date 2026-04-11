@@ -46,7 +46,7 @@ test('Startseite', async ({ page }) => {
 
   await expect(page.locator('div.ctg-footer-notice')).toBeVisible();
   await expect(page.locator('div.ctg-footer-notice')).toContainText('Kontakt');
-  await expect(page.locator('div.ctg-footer-notice')).toContainText('Auskunftsdienst Handschriften');
+  await expect(page.locator('div.ctg-footer-notice')).toContainText('Auskunftsdienst Bibliothek');
   color = await page.locator('div.ctg-footer-notice').evaluate((el) => {
     return window.getComputedStyle(el).getPropertyValue('background-color');
   });
