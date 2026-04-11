@@ -2,7 +2,8 @@ import { test, expect } from '@playwright/test';
 
 // Ticket #5796
 test('Suchschlitz Autocomplete', async ({ page }) => {
-  await page.goto('katalog');
+  // Wegen Anubis auf www-test-ng vorübergehend auf Seite find/ statt katalog/
+  await page.goto('find');
   await page.locator('#token-input-c-field-').pressSequentially('dür');
   await expect(page.locator('.token-input-dropdown')).toBeVisible();
 
@@ -51,7 +52,8 @@ test('Suchschlitz Autocomplete', async ({ page }) => {
 });
 
 test('Suchschlitz Normdaten', async ({ page }) => {
-  await page.goto('katalog');
+  // Wegen Anubis auf www-test-ng vorübergehend auf Seite find/ statt katalog/
+  await page.goto('find');
 
   // Auswahl Normdaten über Autocomplete werden oberhalb des Suchschlitz angezeigt, im Suchschlitz können weitere Begriffe eingetragen werden
   await page.locator('.token-input-input-token').locator('input').pressSequentially('dürr');

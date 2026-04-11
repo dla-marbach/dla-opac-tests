@@ -31,7 +31,7 @@ test('Startseite', async ({ page }) => {
 
   await page.goto('katalog');
   await expect(page.getByRole('banner')).toContainText('Katalog');
-  await expect(page.locator('form[name="c-form"]')).toContainText('– der Online-Katalog des Deutschen Literaturarchivs Marbach');
+  await expect(page.locator('form.searchForm')).toContainText('– der Online-Katalog des Deutschen Literaturarchivs Marbach');
 
   await expect(page.locator('section.ctg-important-info')).toBeVisible();
   await expect(page.locator('section.ctg-important-info')).toContainText('Sammelgebiet des Deutschen Literaturarchivs Marbach');
