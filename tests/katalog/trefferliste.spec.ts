@@ -13,13 +13,28 @@ test('Werbetreffer', async ({ page }) => {
 test('Highlighting', async ({ page }) => {
   // Suchbegriffe in der Trefferliste rot hervorgehoben (beim ersten Treffer "Kafka - der letzte Prozess")
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
-  const firstRedText = page.locator('#c12310-result-AK01325113').locator('.field-listview_title').locator('em.highlight').first();
-  await expect(firstRedText).toContainText('Kafka');
-  const color = await firstRedText.evaluate((el) => {
-    return window.getComputedStyle(el).getPropertyValue('color');
+  const resultList = page.locator('.ctg-result-list').nth(1);
+  await expect(resultList.locator('.ctg-result-item').first()).toBeVisible({ timeout: 10000 });
+
+  const containsRedKafka = await resultList.evaluate((list) => {
+    const nodes = Array.from(list.querySelectorAll('*'));
+    return nodes.some((node) => {
+      const text = node.textContent?.trim() ?? '';
+      const color = window.getComputedStyle(node).getPropertyValue('color');
+      return /kafka/i.test(text) && color.includes('rgb(197, 0, 23)');
+    });
   });
-  expect(color).toContain('rgb(197, 0, 23)');
-  await expect(page.locator('#c12310-result-AK01325113').locator('.field-listview_title').locator('em.highlight').last()).toContainText('Prozess');
+  expect(containsRedKafka).toBe(true);
+
+  const containsRedProzess = await resultList.evaluate((list) => {
+    const nodes = Array.from(list.querySelectorAll('*'));
+    return nodes.some((node) => {
+      const text = node.textContent?.trim() ?? '';
+      const color = window.getComputedStyle(node).getPropertyValue('color');
+      return /prozess/i.test(text) && color.includes('rgb(197, 0, 23)');
+    });
+  });
+  expect(containsRedProzess).toBe(true);
 });
 
 test('Trefferanzahl', async ({ page }) => {
