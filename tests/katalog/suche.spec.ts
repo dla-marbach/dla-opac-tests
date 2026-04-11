@@ -19,19 +19,19 @@ test('Suchschlitz Autocomplete', async ({ page }) => {
   });
   expect(color).toContain('rgb(218, 218, 218)');
 
-  await page.getByRole('listitem').filter({ hasText: /^dürrenmatt$/ }).click();
-  await expect(page.locator('#token-input-c-field-')).toHaveValue('dürrenmatt');
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /^dürrenmatt$/ }).first().click({ timeout: 10000 });
+  await expect(page.locator('.token-input-input-token').locator('input')).toHaveValue('dürrenmatt');
 
   // Weitere Begriffe über Autocomplete hinzufügen: neue Begriffe werden im Suchschlitz ergänzt, vorhandene Eingaben werden nicht überschrieben (siehe #2158)
-  await page.locator('#token-input-c-field-').click();
-  await page.locator('#token-input-c-field-').pressSequentially(' be');
+  await page.locator('.token-input-input-token').click();
+  await page.locator('.token-input-input-token').locator('input').pressSequentially(' be');
   await expect(page.locator('.token-input-dropdown')).toBeVisible();
-  await page.getByRole('listitem').filter({ hasText: /^dürrenmatt besuch$/ }).click({ timeout: 10000 });
-  await page.locator('#token-input-c-field-').click();
-  await page.locator('#token-input-c-field-').pressSequentially(' fil');
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /^dürrenmatt besuch$/ }).first().click({ timeout: 10000 });
+  await page.locator('.token-input-input-token').click();
+  await page.locator('.token-input-input-token').locator('input').pressSequentially(' fil');
   await expect(page.locator('.token-input-dropdown')).toBeVisible();
-  await page.getByRole('listitem').filter({ hasText: /^film$/ }).click({ timeout: 10000 });
-  await expect(page.locator('#token-input-c-field-')).toHaveValue('dürrenmatt besuch film');
+  await page.locator('.token-input-dropdown').getByText(/^film$/).first().click({ timeout: 10000 });
+  await expect(page.locator('.token-input-input-token').locator('input')).toHaveValue('dürrenmatt besuch film');
 
   // mehrere Begriffe werden mit "und" kombiniert (müssen beide im Treffer vorkommen)
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
