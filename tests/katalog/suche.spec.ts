@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test('Suchschlitz Autocomplete', async ({ page }) => {
   // Wegen Anubis auf www-test-ng vorübergehend auf Seite find/ statt katalog/
   await page.goto('find');
-  await page.locator('#token-input-c-field-').pressSequentially('dür');
+  await page.locator('.token-input-input-token').locator('input').pressSequentially('dürr');
   await expect(page.locator('.token-input-dropdown')).toBeVisible();
 
   // Autocomplete hat zwei Bereiche: weiß (normales Autocomplete) und grau Normdaten (relevante Namen & Werke)
