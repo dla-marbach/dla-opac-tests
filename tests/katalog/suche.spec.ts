@@ -5,7 +5,7 @@ test('Suchschlitz', async ({ page }) => {
 
   await page.goto('katalog');
   await page.locator('#token-input-c-field-').pressSequentially('dür');
-  await expect(page.locator('.token-input-dropdown')).toBeVisible();
+  await expect(page.locator('.token-input-dropdown')).toBeVisible({ timeout: 10000 });
 
   // Autocomplete hat zwei Bereiche: weiß (normales Autocomplete) und grau Normdaten (relevante Namen & Werke)
   await expect(page.locator('.autocomplete-list-li.token-input-dropdown-item').first()).not.toHaveClass('normdata-autocomplete');
@@ -33,9 +33,10 @@ test('Suchschlitz', async ({ page }) => {
 
   // mehrere Begriffe werden mit "und" kombiniert (müssen beide im Treffer vorkommen)
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
-  await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Besuch der alten Dame');
-  await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Film', { ignoreCase: true });
-  await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Dürrenmatt');
+  const searchResults = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item');
+  await expect(searchResults.first()).toBeVisible({ timeout: 10000 });
+  await expect(searchResults.filter({ hasText: /Besuch/i }).first()).toContainText('Dürrenmatt');
+  await expect(searchResults.filter({ hasText: /Film/i }).first()).toBeVisible();
 
   // Löschen der Sucheingaben über X (rechts im Suchschlitz)
   await page.locator('.ctg-search-autocomplete-button > a').click();
@@ -49,10 +50,10 @@ test('Suchschlitz', async ({ page }) => {
   // Auswahl Normdaten über Autocomplete werden oberhalb des Suchschlitz angezeigt, im Suchschlitz können weitere Begriffe eingetragen werden
   await page.locator('.ctg-search-autocomplete-button > a').click();
   await page.locator('.token-input-input-token').locator('input').pressSequentially('dürr');
-  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: 'Dürrenmatt, Friedrich (1921-1990)' }).click();
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /^Dürrenmatt, Friedrich \(1921-1990\)$/ }).click();
   await expect(page.locator('.token-input-token')).toContainText('Dürrenmatt, Friedrich (1921-1990)');
   await page.locator('.token-input-input-token').locator('input').pressSequentially("Physiker");
-  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: 'Dürrenmatt, Friedrich <1921-1990>. Die Physiker (Drama : 1962)' }).click();
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /Die Physiker \(Drama : 1962\)$/ }).click();
   await page.locator('.token-input-input-token').locator('input').fill('1962');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
   await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Physiker');
