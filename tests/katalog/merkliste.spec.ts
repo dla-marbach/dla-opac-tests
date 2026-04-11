@@ -10,9 +10,11 @@ test('Merkliste', async ({ page }) => {
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
 
   // Titel in Merkliste einstellen mit Sternbutton
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.add-watchlist-button').click({ force: true });
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).locator('.add-watchlist-button').click({ force: true });
-  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(2).locator('.add-watchlist-button').click({ force: true });
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.add-watchlist-button').click({ force: true, timeout: 10000 });
+  await expect(page.locator('.watchlist-counter')).toContainText('(1)');
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(1).locator('.add-watchlist-button').click({ force: true, timeout: 10000 });
+  await expect(page.locator('.watchlist-counter')).toContainText('(2)');
+  await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').nth(2).locator('.add-watchlist-button').click({ force: true, timeout: 10000 });
   await expect(page.locator('.watchlist-counter')).toContainText('(3)');
   await page.locator('#watchlist').click({ force: true });
   await expect(page.locator('h1')).toContainText('Merkliste');

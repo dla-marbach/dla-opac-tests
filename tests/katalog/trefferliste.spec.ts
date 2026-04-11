@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
 test('Werbetreffer', async ({ page }) => {
   // zwei Normdaten mit den meisten Verknüpfungen an erster Position
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
-  await expect(page.locator('.ctg-result-list').first().locator('.ctg-result-item.ctg-result-normdata').first()).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('.ctg-result-list').first().locator('.ctg-result-item.ctg-result-normdata').first()).toBeVisible();
   await expect(page.locator('.ctg-result-list').first()).toContainText('Kafka, Franz (1883-1924)');
   await expect(page.locator('.ctg-result-list').first()).toContainText('Kafka, Franz (1883-1924). Der Prozess (Roman : 1925)');
   await expect(page.locator('.ctg-result-list').first()).toContainText('Tipp: Relevante Namen & Werke');
@@ -14,7 +14,7 @@ test('Highlighting', async ({ page }) => {
   // Suchbegriffe in der Trefferliste rot hervorgehoben (beim ersten Treffer "Kafka - der letzte Prozess")
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
   const resultList = page.locator('.ctg-result-list').nth(1);
-  await expect(resultList.locator('.ctg-result-item').first()).toBeVisible({ timeout: 10000 });
+  await expect(resultList.locator('.ctg-result-item').first()).toBeVisible();
 
   const containsRedKafka = await resultList.evaluate((list) => {
     const nodes = Array.from(list.querySelectorAll('*'));
@@ -42,12 +42,12 @@ test('Trefferanzahl', async ({ page }) => {
   const countSelect = page.locator('.dlaResultCountSelect').first();
   const resultItems = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item');
 
-  await countSelect.selectOption('50', { force: true });
+  await countSelect.selectOption('50', { force: true, timeout: 10000 });
   await expect(countSelect).toHaveValue('50');
   await expect.poll(() => page.url()).toContain('tx_find_find%5Bcount%5D=50');
   await expect(resultItems).toHaveCount(50);
 
-  await countSelect.selectOption('25', { force: true });
+  await countSelect.selectOption('25', { force: true, timeout: 10000 });
   await expect(countSelect).toHaveValue('25');
   await expect.poll(() => page.url()).toContain('tx_find_find%5Bcount%5D=25');
   await expect(resultItems).toHaveCount(25);
@@ -142,7 +142,7 @@ test('Icons', async ({ page }) => {
   // Symbol kennzeichnet ob Gedruckt, Handschrift, Bilder & Objekte, Audio und Video (nur in der Desktopansicht)
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
   if (page.viewportSize().width > 768) {
-    await expect(page.locator('.icon.bel-pcfilm').first()).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('.icon.bel-pcfilm').first()).toBeVisible();
     await expect(page.locator('.icon.bel-mag').first()).toBeVisible();
     // auskommentiert weil die Icons auf der Trefferliste wegen geändertem Relevanzranking nicht vorkommen
     // await expect(page.locator('.icon.bel-pce').first()).toBeVisible();
@@ -154,7 +154,7 @@ test('Icons', async ({ page }) => {
 test('Rechter Bereich', async ({ page }) => {
   // Rechter Bereich: Hinweis auf FAQ, Kontakt sowie andere Fundorte
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
-  await expect(page.getByText('finden Sie Tipps zur Suche.')).toBeVisible({ timeout: 10000 });
+  await expect(page.getByText('finden Sie Tipps zur Suche.')).toBeVisible();
   await expect(page.getByText('Auskunftsdienst Bibliothek')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Andere Fundorte' })).toBeVisible();
   await expect(page.getByRole('listitem').filter({ hasText: 'Fernleihe' })).toBeVisible();
@@ -166,7 +166,7 @@ test('Ein Treffer', async ({ page }) => {
   await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').fill('Cortázar Unzeiten Erzählungen 1993');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
-  await expect(page.locator('h2')).toContainText('Unzeiten : Erzählungen - 1. Aufl.', { timeout: 10000 });
+  await expect(page.locator('h2')).toContainText('Unzeiten : Erzählungen - 1. Aufl.');
 });
 
 test('Keine Treffer', async ({ page }) => {

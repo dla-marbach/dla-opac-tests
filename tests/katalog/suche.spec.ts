@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5796
-test('Suchschlitz', async ({ page }) => {
-
+test('Suchschlitz Autocomplete', async ({ page }) => {
   await page.goto('katalog');
   await page.locator('#token-input-c-field-').pressSequentially('dür');
-  await expect(page.locator('.token-input-dropdown')).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('.token-input-dropdown')).toBeVisible();
 
   // Autocomplete hat zwei Bereiche: weiß (normales Autocomplete) und grau Normdaten (relevante Namen & Werke)
   await expect(page.locator('.autocomplete-list-li.token-input-dropdown-item').first()).not.toHaveClass('normdata-autocomplete');
@@ -25,16 +24,19 @@ test('Suchschlitz', async ({ page }) => {
   // Weitere Begriffe über Autocomplete hinzufügen: neue Begriffe werden im Suchschlitz ergänzt, vorhandene Eingaben werden nicht überschrieben (siehe #2158)
   await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').pressSequentially(' be');
-  await page.getByRole('listitem').filter({ hasText: /^dürrenmatt besuch$/ }).click();
+  await expect(page.locator('.token-input-dropdown')).toBeVisible();
+  await page.getByRole('listitem').filter({ hasText: /^dürrenmatt besuch$/ }).click({ timeout: 10000 });
   await page.locator('#token-input-c-field-').click();
   await page.locator('#token-input-c-field-').pressSequentially(' fil');
-  await page.getByRole('listitem').filter({ hasText: /^film$/ }).click();
+  await expect(page.locator('.token-input-dropdown')).toBeVisible();
+  await page.getByRole('listitem').filter({ hasText: /^film$/ }).click({ timeout: 10000 });
   await expect(page.locator('#token-input-c-field-')).toHaveValue('dürrenmatt besuch film');
 
   // mehrere Begriffe werden mit "und" kombiniert (müssen beide im Treffer vorkommen)
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
+  await page.waitForLoadState('networkidle');
   const searchResults = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item');
-  await expect(searchResults.first()).toBeVisible({ timeout: 10000 });
+  await expect(searchResults.first()).toBeVisible();
   await expect(searchResults.filter({ hasText: /Besuch/i }).first()).toContainText('Dürrenmatt');
   await expect(searchResults.filter({ hasText: /Film/i }).first()).toBeVisible();
 
@@ -46,16 +48,22 @@ test('Suchschlitz', async ({ page }) => {
   await page.locator('.token-input-input-token').locator('input').fill('"Dürrenmatt Besuch"');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
   await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText(/Dürrenmatt\s*[^a-zA-Z0-9]*\s*Besuch/i);
+});
+
+test('Suchschlitz Normdaten', async ({ page }) => {
+  await page.goto('katalog');
 
   // Auswahl Normdaten über Autocomplete werden oberhalb des Suchschlitz angezeigt, im Suchschlitz können weitere Begriffe eingetragen werden
-  await page.locator('.ctg-search-autocomplete-button > a').click();
   await page.locator('.token-input-input-token').locator('input').pressSequentially('dürr');
-  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /^Dürrenmatt, Friedrich \(1921-1990\)$/ }).click();
+  await expect(page.locator('.token-input-dropdown')).toBeVisible();
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /^Dürrenmatt, Friedrich \(1921-1990\)$/ }).click({ timeout: 10000 });
   await expect(page.locator('.token-input-token')).toContainText('Dürrenmatt, Friedrich (1921-1990)');
   await page.locator('.token-input-input-token').locator('input').pressSequentially("Physiker");
-  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /Die Physiker \(Drama : 1962\)$/ }).click();
+  await expect(page.locator('.token-input-dropdown')).toBeVisible();
+  await page.locator('.token-input-dropdown').getByRole('listitem').filter({ hasText: /Die Physiker \(Drama : 1962\)$/ }).click({ timeout: 10000 });
   await page.locator('.token-input-input-token').locator('input').fill('1962');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
+  await page.waitForLoadState('networkidle');
   await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Physiker');
   await expect(page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first()).toContainText('Dürrenmatt');
 

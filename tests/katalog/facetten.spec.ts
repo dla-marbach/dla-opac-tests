@@ -5,7 +5,7 @@ test('Facetten Basis', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // erste 3 Facetten sind aufgeklappt: Medientyp, Form und Inhalt, Medium
-  await expect(page.locator('#Medientypen').getByRole('link', { name: 'Gedrucktes' })).toBeVisible({ timeout: 10000 });
+  await expect(page.locator('#Medientypen').getByRole('link', { name: 'Gedrucktes' })).toBeVisible();
   await expect(page.locator('#FormUndInhalt').getByRole('listitem').filter({ hasText: 'alle zeigen' })).toBeVisible();
   await expect(page.locator('#Medium').getByRole('listitem').filter({ hasText: 'alle zeigen' })).toBeVisible();
 
@@ -30,7 +30,7 @@ test('Facetten Basis', async ({ page }) => {
 
   // Korrekte Anzeige
   await page.waitForLoadState();
-  await expect(page.locator('#content-area')).toContainText('Säkularfeier', { timeout: 10000 });
+  await expect(page.locator('#content-area')).toContainText('Säkularfeier');
   await expect(page.getByRole('heading', { name: 'Aktive Facetten' })).toBeVisible();
   await expect(page.locator('.active-facets')).toContainText('alle Filter zurücksetzen');
   await expect(page.locator('.active-facets')).toContainText('Schillerplatz Stuttgart in Funktion Darstellungsort');
@@ -38,14 +38,14 @@ test('Facetten Basis', async ({ page }) => {
 
   // alles zurücksetzen
   await page.locator('.active-facets').getByRole('link', { name: 'alle Filter zurücksetzen' }).click();
-  await expect(page.getByRole('heading', { name: 'Aktive Facetten' })).toBeHidden({ timeout: 10000 });
+  await expect(page.getByRole('heading', { name: 'Aktive Facetten' })).toBeHidden();
 });
 
 test('Facetten Ausschluss', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // Werte in Facette ausschließen
-  await page.locator('#Medientypen').getByRole('listitem').filter({ hasText: 'Gedrucktes' }).locator('.facetExclude', { timeout: 10000 }).click();
+  await page.locator('#Medientypen').getByRole('listitem').filter({ hasText: 'Gedrucktes' }).locator('.facetExclude').click();
   await expect(page.locator('.active-facets').filter({ hasText: 'Gedrucktes' })).toBeVisible();
   const link = page.locator('.active-facets').getByRole('link', { name: 'Gedrucktes' });
   const textDecoration = await link.evaluate((el) => {
@@ -58,7 +58,7 @@ test('Facette Zeit', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // Zeit-Diagramm bei der Facette Zeit
-  await page.locator('#Zeit').getByRole('heading', { name: 'Zeit' }).locator('a', { timeout: 10000 }).click();
+  await page.locator('#Zeit').getByRole('heading', { name: 'Zeit' }).locator('a').click();
   await page.locator('#from-histogramm-Zeit').click();
   await page.locator('#from-histogramm-Zeit').fill('1800');
   await page.locator('#from-histogramm-Zeit').press('Tab');
@@ -73,7 +73,7 @@ test('Hierachische Facetten', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // Hierarchische Facette bei Personen und Körperschaften, Ort und Sprache
-  await page.locator('#Personen').getByRole('link', { name: 'Schiller, Friedrich von (1759-1805)' }, { timeout: 10000 }).click();
+  await page.locator('#Personen').getByRole('link', { name: 'Schiller, Friedrich von (1759-1805)' }).click();
   await page.locator('#Personen').getByRole('link', { name: 'Verfasser/Urheber' }).click();
   await page.locator('#Sprache').getByRole('link', { name: 'Deutsch' }).click();
   await page.locator('#Sprache').getByRole('link', { name: 'Original' }).click();
@@ -83,7 +83,7 @@ test('Facette Sammlung', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // erneute Suche löscht die Filterung
-  await page.locator('.token-input-input-token').locator('input', { timeout: 10000 }).fill('Goethe');
+  await page.locator('.token-input-input-token').locator('input').fill('Goethe');
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
   await expect(page.getByRole('heading', { name: 'Aktive Facetten' })).toBeHidden();
 
