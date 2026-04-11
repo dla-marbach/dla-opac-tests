@@ -39,10 +39,18 @@ test('Highlighting', async ({ page }) => {
 
 test('Trefferanzahl', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
-  await page.locator('.dlaResultCountSelect').selectOption('50', { force: true });
-  await expect(page.locator('.ctg-result-list').last().locator('.ctg-result-item')).toHaveCount(50);
-  await page.locator('.dlaResultCountSelect').selectOption('25', { force: true });
-  await expect(page.locator('.ctg-result-list').last().locator('.ctg-result-item')).toHaveCount(25);
+  const countSelect = page.locator('.dlaResultCountSelect').first();
+  const resultItems = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item');
+
+  await countSelect.selectOption('50', { force: true });
+  await expect(countSelect).toHaveValue('50');
+  await expect.poll(() => page.url()).toContain('tx_find_find%5Bcount%5D=50');
+  await expect(resultItems).toHaveCount(50);
+
+  await countSelect.selectOption('25', { force: true });
+  await expect(countSelect).toHaveValue('25');
+  await expect.poll(() => page.url()).toContain('tx_find_find%5Bcount%5D=25');
+  await expect(resultItems).toHaveCount(25);
 });
 
 test('Treffer aufklappen', async ({ page }) => {
