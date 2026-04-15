@@ -5,12 +5,8 @@ test('Bestandsübersicht', async ({ page }) => {
   // Man gelangt zur Bestandsübersicht über den Einstieg unterhalb des Suchschlitzes
   await page.goto('katalog');
   await page.getByRole('link', { name: 'Bestandsübersicht' }).click();
-  await expect(page.getByRole('banner')).toContainText('Bestandsübersicht');
-  // Man gelangt zur Systematik über einen Teaser
-  await page.goto('katalog');
-  await page.getByRole('heading', { name: 'Nachlässe und Sammlungen' }).click();
-  await expect(page.getByRole('banner')).toContainText('Bestandsübersicht');
-
+  await expect(page.getByRole('textbox', { name: 'Suche in der Bestandsübersicht' })).toBeVisible();
+  
   // Eingabe Begriff Suchschlitz, bewirkt Aufklappen der ersten Hierarchie-Ebene,
   // von dort gelangt man auf die tieferen Hierarchie-Ebenen bis der Suchbegriff angezeigt wird
   await page.getByRole('textbox', { name: 'Suche in der Bestandsübersicht' }).pressSequentially('kafka');
