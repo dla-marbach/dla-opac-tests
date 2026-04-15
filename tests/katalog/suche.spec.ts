@@ -86,9 +86,10 @@ test('Suchschlitz Normdaten', async ({ page }) => {
 
 
 // #5797
-test.skip('Erweiterte Suche', async ({ page }) => {
-
-  await page.goto('katalog');
+test('Erweiterte Suche', async ({ page }) => {
+  // Wegen Anubis auf www-test-ng vorübergehend auf Seite find/ statt katalog/
+  await page.goto('find');
+  
   await page.getByRole('link', { name: 'Erweiterte Suche' }).click();
 
   // mehrere Felder können kombiniert werden (Einstellung UND)
