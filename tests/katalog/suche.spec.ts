@@ -102,8 +102,24 @@ test('Erweiterte Suche', async ({ page }) => {
   var firstText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').textContent();
   expect(firstText).toContain('Kästner');
   expect(firstText).toContain('Das doppelte Lottchen');
-  var firstYear = firstText?.match(regex);
-  expect(firstYear).toBeUndefined();
+
+  const zeitFacetChartValues = await page.locator('section.ctg-facet#Zeit').evaluate((section) => {
+    const scripts = Array.from(section.querySelectorAll('script'));
+    for (const script of scripts) {
+      const text = script.textContent || '';
+      const match = text.match(/var\s+chartValues\s*=\s*\[([^\]]*)\]/);
+      if (match) {
+        return match[1]
+          .split(',')
+          .map((value) => Number(value.trim()))
+          .filter((value) => !Number.isNaN(value));
+      }
+    }
+    return null;
+  });
+  expect(zeitFacetChartValues).not.toBeNull();
+  expect(zeitFacetChartValues?.length).toBeGreaterThan(0);
+  expect(zeitFacetChartValues?.every((value) => value === 0)).toBeTruthy();
 
   // Zeit/Datum Von / Bis: öffnet Datumspicker, dieser kann auch durch direkte Eingaben überschrieben werden oder Auswahl korrigiert werden
   await page.goto('katalog');
@@ -119,21 +135,23 @@ test('Erweiterte Suche', async ({ page }) => {
   await page.locator('#extended-search-input-3').pressSequentially('2010-01-01'); // Datum wieder überschreiben
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
   // Anzeige nach Datum aufsteigend sortieren
-  await page.locator('select[name="sort"]').selectOption('facet_time_stat asc', { force: true });
+  await page.locator('select[name="sort"]').selectOption({ label: 'Jahr aufsteigend' }, { force: true, timeout: 10000 });
   await page.waitForLoadState('networkidle');
   firstText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').textContent();
   expect(firstText).toContain('Kästner');
   expect(firstText).toContain('Das doppelte Lottchen');
-  firstYear = firstText?.match(regex);
-  expect(parseInt(firstYear)).toBeGreaterThanOrEqual(2000);
+  var firstDateText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').locator('.field-listview_additional1-group, .field-displayAddition1').first().textContent();
+  var firstYear = firstDateText?.match(regex);
+  expect(parseInt(firstYear?.[0] || '0')).toBeGreaterThanOrEqual(2000);
   // Anzeige nach Datum absteigend sortieren
-  await page.locator('select[name="sort"]').selectOption('facet_time_stat desc', { force: true });
+  await page.locator('select[name="sort"]').selectOption({ label: 'Jahr absteigend' }, { force: true, timeout: 10000 });
   await page.waitForLoadState('networkidle');
   firstText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').textContent();
   expect(firstText).toContain('Kästner');
   expect(firstText).toContain('Das doppelte Lottchen');
-  firstYear = firstText?.match(regex);
-  expect(parseInt(firstYear)).toBeLessThanOrEqual(2010);
+  firstDateText = await page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item').first().locator('.ctg-ri-text').locator('.field-listview_additional1-group, .field-displayAddition1').first().textContent();
+  firstYear = firstDateText?.match(regex);
+  expect(parseInt(firstYear?.[0] || '0')).toBeLessThanOrEqual(2010);
 
   // Eingabe zurücksetzen
   await page.getByRole('button', { name: 'Eingabe zurücksetzen' }).click();
