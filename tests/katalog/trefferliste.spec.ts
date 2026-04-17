@@ -57,17 +57,30 @@ test('Treffer aufklappen', async ({ page }) => {
   // Treffer kann aufgeklappt werden für Navigation zum Reiter "Details" und "Bestellen/Provenienz"
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=Kafka%20Prozess');
   const resultItems = page.locator('.ctg-result-list').nth(1).locator('.ctg-result-item');
+  await expect(resultItems.first()).toBeVisible({ timeout: 10000 });
+  const itemCount = await resultItems.count();
 
-  // ersten Treffer ermitteln
-  var firstItem = resultItems.first();
-  await firstItem.locator('[data-details-toggle="1"]').first().click();
-  await expect(firstItem.getByText('Medium')).toBeVisible();
-  await firstItem.getByRole('link', { name: 'Weitere Details' }).click();
+  // ersten aufklappbaren Treffer ermitteln
+  let foundDetailsLink = false;
+  for (let i = 0; i < itemCount; i++) {
+    const item = resultItems.nth(i);
+    const detailsToggle = item.locator('[data-details-toggle="1"]').first();
+    if (await detailsToggle.count() === 0) {
+      continue;
+    }
+
+    await detailsToggle.click();
+    await expect(item.getByText('Medium')).toBeVisible();
+    await item.getByRole('link', { name: 'Weitere Details' }).click();
+    foundDetailsLink = true;
+    break;
+  }
+
+  expect(foundDetailsLink).toBe(true);
   await expect(page.locator('article.detail').locator('.ctg-dtvt-menu-active')).toContainText('Details');
   await page.goBack();
 
   // Einen Treffer ermitteln, der nach dem Aufklappen den Link "Zur Bestellung" anbietet
-  const itemCount = await resultItems.count();
   let foundOrderLink = false;
   for (let i = 0; i < itemCount; i++) {
     const item = resultItems.nth(i);
