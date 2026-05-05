@@ -20,7 +20,7 @@ test('HS', async ({ page }) => {
     await expect(page.locator('#detail')).toContainText('Sprache');
     await expect(page.locator('#detail')).toContainText('Deutsch');
     await expect(page.locator('#detail')).toContainText('Bestandssignatur');
-    await expect(page.locator('#detail').locator('a[href*="find/opac/id/BF00000009"]')).toContainText('Uhland, Ludwig');
+    await expect(page.locator('#detail').locator('a[href*="find/opac/id/BF00000009"]')).toContainText('A:Uhland, Ludwig');
     await expect(page.locator('#detail')).toContainText('Zugangsnummer');
     await expect(page.locator('#detail')).toContainText('HS.1998.0111.00005');
     await expect(page.locator('#detail')).toContainText('Mediennummer');
