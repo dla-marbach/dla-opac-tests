@@ -13,7 +13,7 @@ test('Exemplare', async ({ page }) => {
     await expect(page.locator('#access')).toContainText('G89.2845');
     await expect(page.locator('#access').locator('div.ctg-dtvt-content:text("G89.2845")')).not.toBeVisible();
     await expect(page.locator('#access')).toContainText('In Bestand');
-    await expect(page.locator('#access').locator('a[href*="find/opac/id/BF00019164"]').first()).toContainText('G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
+    await expect(page.locator('#access').locator('a[href*="find/opac/id/BF00019164"]').first()).toContainText('Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
     await expect(page.locator('#access')).toContainText('Beschreibung');
     await expect(page.locator('#access')).toContainText('Mit hs. Widmung an Leopold von Schloezer');
     await expect(page.locator('#access')).toContainText('Enthaltene Materialien');
