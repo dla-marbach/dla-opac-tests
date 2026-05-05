@@ -89,7 +89,7 @@ test('Facette Sammlung', async ({ page }) => {
 
   // Ausgewählte Sammlung wird nach erneuter Suche nicht zurückgesetzt
   await page.locator('#Sammlung').getByRole('heading', { name: 'Sammlung' }).locator('a').click();
-  await page.locator('#Sammlung').getByRole('link', { name: 'COTTA:Cotta-Archiv (' }).click();
+  await page.locator('#Sammlung').getByRole('link', { name: 'Cotta-Archiv (' }).click();
   await page.getByRole('button', { name: 'Jetzt suchen' }).click();
-  await expect(page.locator('.active-facets')).toContainText('COTTA:Cotta-Archiv');
+  await expect(page.locator('.active-facets')).toContainText('Cotta-Archiv');
 });
