@@ -48,7 +48,7 @@ test('Bestellstatus', async ({ page }) => {
         const textContent = await listItem.textContent();
         // grünes Icon
         if (textContent?.includes('R.A.:1B/31:1923/2')) {
-            await expect(listItem).toContainText('Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
+            await expect(listItem).toContainText('G:Rilke-Archiv (Sammlung Paul Obermüller und Jean Gebser)');
             await expect(listItem.locator('.ctg-button')).toContainText('Jetzt bestellen');
             const color = await listItem.locator('span.icon').evaluate((el) => {
                 return window.getComputedStyle(el).getPropertyValue('color');
