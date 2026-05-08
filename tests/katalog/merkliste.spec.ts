@@ -32,7 +32,10 @@ test('Merkliste', async ({ page }) => {
   await expect(page.locator('.dataservice-format-flyout.active')).toBeVisible();
 
   const downloadPromiseTsv = page.waitForEvent('download');
-  await page.locator('.dataservice-format-flyout.active .dataservice-format-btn', { hasText: 'TSV' }).click();
+  await page
+    .locator('.dataservice-format-flyout.active .dataservice-format-btn', { hasText: /^TSV/ })
+    .first()
+    .click();
   const downloadTsv = await downloadPromiseTsv;
   const filePathTsv = path.join(__dirname, downloadTsv.suggestedFilename());
   await downloadTsv.saveAs(filePathTsv);
