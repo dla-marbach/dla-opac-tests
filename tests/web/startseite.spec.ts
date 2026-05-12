@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 // Ticket #5806
-test('teaserSuchsyntax', async ({ page, baseURL }) => {
+test('Teaser', async ({ page, baseURL }) => {
 
   // Vorbereitung
   await page.goto('katalog');
@@ -27,11 +27,11 @@ test('teaserSuchsyntax', async ({ page, baseURL }) => {
 
 
 // Ticket #8387
-test('startseite', async ({ page }) => {
+test('Startseite', async ({ page }) => {
 
   await page.goto('katalog');
   await expect(page.getByRole('banner')).toContainText('Katalog');
-  await expect(page.locator('form[name="c-form"]')).toContainText('– der Online-Katalog des Deutschen Literaturarchivs Marbach');
+  await expect(page.locator('form.searchForm')).toContainText('– der Online-Katalog des Deutschen Literaturarchivs Marbach');
 
   await expect(page.locator('section.ctg-important-info')).toBeVisible();
   await expect(page.locator('section.ctg-important-info')).toContainText('Sammelgebiet des Deutschen Literaturarchivs Marbach');
@@ -46,7 +46,7 @@ test('startseite', async ({ page }) => {
 
   await expect(page.locator('div.ctg-footer-notice')).toBeVisible();
   await expect(page.locator('div.ctg-footer-notice')).toContainText('Kontakt');
-  await expect(page.locator('div.ctg-footer-notice')).toContainText('Auskunftsdienst Handschriften');
+  await expect(page.locator('div.ctg-footer-notice')).toContainText('Auskunftsdienst Bibliothek');
   color = await page.locator('div.ctg-footer-notice').evaluate((el) => {
     return window.getComputedStyle(el).getPropertyValue('background-color');
   });

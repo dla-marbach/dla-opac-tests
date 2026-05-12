@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Ticket #9140
-test('multimedia', async ({ page }) => {
+test('Multimedia', async ({ page }) => {
 
     // PDF-Datei (Bestandsliste)
     await page.goto('find/opac/id/BF00034474/');

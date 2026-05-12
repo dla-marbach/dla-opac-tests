@@ -3,10 +3,13 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: false,
-  timeout: 60_000,
+  fullyParallel: true,
+  timeout: 30_000,
+  expect: {
+    timeout: 10000,
+  },
   retries: 2,
-  workers: 1,
+  workers: 4,
   // Keep default output and always use a fixed 1000ms pause after each test.
   reporter: [
     [process.env.CI ? 'github' : 'list'],
