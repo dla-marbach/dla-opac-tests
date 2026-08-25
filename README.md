@@ -2,11 +2,16 @@
 
 ## Ausführung der Tests
 
-Die Tests werden im DLA automatisiert täglich ausgeführt. Hierbei wird sowohl das Produktiv- als auch das Testsystem getestet. Die Ausführung erfolgt in einem dafür erstellten Dockercontainer (siehe [Dockerfile](Dockerfile)).
+Ein Scheduler im DLA führt die Tests täglich automatisiert gegen Produktiv- und Testsystem aus, über [run-tests.sh](run-tests.sh) mit der jeweiligen Subdomain als Parameter:
 
-Die Testdateien liegen im Ordner [tests](tests). Werden weitere Dateien dort abgelegt, werden sie bei der Ausführung automatisch berücksichtigt.
+```sh
+./run-tests.sh www          # testet www.dla-marbach.de
+./run-tests.sh www-test-ng  # testet www-test-ng.dla-marbach.de
+```
 
-Die Konfiguration der Testausführung ist in [playwright.config.js](playwright.config.js) zu finden, inklusive der baseURL für die Anpassung des zu testenden Systems.
+Das Script startet die Tests in einem offiziellen [Playwright-Docker-Image](https://mcr.microsoft.com/en-us/artifact/mar/playwright), ohne dass Node.js oder Browser lokal installiert werden müssen. Die npm-Abhängigkeiten werden dabei in einem Docker-Volume installiert (bleiben so zwischen Läufen erhalten, ohne mit dem lokalen `node_modules` zu kollidieren). Die Version des Docker-Images muss zur Version von `@playwright/test` in [package.json](package.json) passen – bei einem Versions-Update also beide Stellen anpassen.
+
+Die Subdomain wird per Umgebungsvariable `BASE_URL` als `baseURL` an [playwright.config.js](playwright.config.js) übergeben. Testdateien im Ordner [tests](tests) werden automatisch mit ausgeführt, unabhängig davon, wo sie dort abgelegt werden.
 
 Das Produktivsystem erlaubt nur eine geringe Anzahl an Zugriffen pro Minute, daher schlagen Tests aus externen Netzen oft beim ersten Lauf fehl.
 

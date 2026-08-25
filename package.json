@@ -1,12 +1,12 @@
 {
-  "name": "playwright-github-action",
+  "name": "dla-opac-tests",
   "version": "1.0.0",
-  "description": "run playwright tests with github actions and upload trace.zip to github repo",
-  "main": "index.js",
-  "scripts": {},
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "Automatisierte Playwright-Tests für den Katalog des DLA Marbach",
+  "private": true,
+  "scripts": {
+    "test": "playwright test"
+  },
+  "license": "MIT",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
     "@types/node": "^22.13.0"
