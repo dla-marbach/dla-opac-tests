@@ -25,13 +25,20 @@ export default defineConfig({
   /* Configure projects for browsers */
   projects: [
     {
+      name: 'setup',
+      testDir: './setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+    {
       name: 'desktop',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], storageState: '.auth/pow.json' },
+      dependencies: ['setup'],
     },
     /* Mobile bei Bedarf aktivieren
     {
        name: 'mobile',
-       use: { ...devices['Pixel 5'] },
+       use: { ...devices['Pixel 5'], storageState: '.auth/pow.json' },
+       dependencies: ['setup'],
     },
     */
   ],

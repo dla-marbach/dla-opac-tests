@@ -5,9 +5,10 @@ test('Facetten Basis', async ({ page }) => {
   await page.goto('find/?tx_find_find%5Bq%5D%5Bdefault%5D=schiller');
 
   // erste 3 Facetten sind aufgeklappt: Medientyp, Form und Inhalt, Medium
+  // Link heißt seit adaea4b (dla-opac-ng) „mehr zeigen“, vorher „alle zeigen“
   await expect(page.locator('#Medientypen').getByRole('link', { name: 'Gedrucktes' })).toBeVisible();
-  await expect(page.locator('#FormUndInhalt').getByRole('listitem').filter({ hasText: 'alle zeigen' })).toBeVisible();
-  await expect(page.locator('#Medium').getByRole('listitem').filter({ hasText: 'alle zeigen' })).toBeVisible();
+  await expect(page.locator('#FormUndInhalt').getByRole('listitem').filter({ hasText: /mehr zeigen|alle zeigen/ })).toBeVisible();
+  await expect(page.locator('#Medium').getByRole('listitem').filter({ hasText: /mehr zeigen|alle zeigen/ })).toBeVisible();
 
   // alle Facetten vorhanden
   await expect(page.locator('#Digital').getByRole('link', { name: 'nur digitale Medien' })).toBeVisible();

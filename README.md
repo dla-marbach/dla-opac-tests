@@ -13,6 +13,8 @@ Das Script startet die Tests in einem offiziellen [Playwright-Docker-Image](http
 
 Die Subdomain wird per Umgebungsvariable `BASE_URL` als `baseURL` an [playwright.config.js](playwright.config.js) übergeben. Testdateien im Ordner [tests](tests) werden automatisch mit ausgeführt, unabhängig davon, wo sie dort abgelegt werden.
 
+Die Trefferliste ist durch eine Sicherheitsprüfung (Proof of Work) geschützt. Damit sie nicht in jedem Test erneut gelöst werden muss, löst das Projekt `setup` ([setup/pow.setup.ts](setup/pow.setup.ts)) sie einmal vor allen Tests und speichert das Cookie in `.auth/pow.json`, das alle Tests per `storageState` übernehmen.
+
 Das Produktivsystem erlaubt nur eine geringe Anzahl an Zugriffen pro Minute, daher schlagen Tests aus externen Netzen oft beim ersten Lauf fehl.
 
 ## Entwicklung lokal mit Visual Studio Code
