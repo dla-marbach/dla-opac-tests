@@ -30,8 +30,8 @@ test('Teaser', async ({ page, baseURL }) => {
 test('Startseite', async ({ page }) => {
 
   await page.goto('katalog');
-  // header.nav-wrapper zählt ebenfalls als banner, daher den Seitenkopf explizit wählen
-  await expect(page.locator('header.page-header')).toContainText('Katalog');
+  // mehrere Elemente zählen als banner (u.a. header.nav-wrapper), daher auf Text filtern
+  await expect(page.getByRole('banner').filter({ hasText: 'Katalog' }).first()).toBeVisible();
   await expect(page.locator('form.searchForm')).toContainText('– der Online-Katalog des Deutschen Literaturarchivs Marbach');
 
   await expect(page.locator('section.ctg-important-info')).toBeVisible();
