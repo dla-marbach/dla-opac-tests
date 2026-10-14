@@ -79,7 +79,8 @@ test('Suchschlitz Normdaten', async ({ page }) => {
 
   for (let i = 0; i < elementsCount; i++) {
     const listItem = elements.nth(i);
-    await expect(listItem.locator('.ctg-ri-icon').locator('span')).toHaveClass('icon bel-mag');
+    // Haupt-Icon prüfen; mehrteilige Titel haben ein zweites (graues) Icon, digitale die Variante bel-mage
+    await expect(listItem.locator('.ctg-ri-icon').locator('span').first()).toHaveClass(/\bbel-mage?\b/);
   }
 
 });
