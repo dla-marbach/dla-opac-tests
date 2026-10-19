@@ -63,14 +63,14 @@ test('Bestellstatus', async ({ page }) => {
             await expect(page.locator('.login-form')).toBeVisible();
             await page.locator('.order-overlay').locator('.close-button').click();
         }
-        // orangenes Icon
+        // gelbes Icon
         if (textContent?.includes('BPC:K146')) {
             await expect(listItem).toContainText('Celan, Paul (1920-1970)');
             await expect(listItem.locator('.ctg-button')).toContainText('Jetzt bestellen');
             const color = await listItem.locator('span.icon').evaluate((el) => {
                 return window.getComputedStyle(el).getPropertyValue('color');
             });
-            expect(color).toContain('rgb(223, 102, 30)');
+            expect(color).toContain('rgb(255, 204, 0)');
 
             await listItem.locator('.ctg-button').click();
             await expect(page.locator('.login-form')).toBeVisible();
