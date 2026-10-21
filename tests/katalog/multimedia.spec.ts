@@ -21,8 +21,13 @@ test('Multimedia', async ({ page }) => {
 
     // Goobi
     await page.goto('find/opac/id/BF00043378/');
+    const slide = page.locator('.dla-slideshow-slide')
+        .filter({ hasText: 'In: Klebemappe 1921 Nachlass Siegfried Kracauer' })
+        .filter({ visible: true })
+        .first();
+    await expect(slide.locator('.dla-slideshow-caption')).toHaveText('In: Klebemappe 1921 Nachlass Siegfried Kracauer');
     const page1Promise = page.waitForEvent('popup');
-    await page.getByRole('link', { name: 'In: Klebemappe 1921 Nachlass' }).click();
+    await slide.getByRole('link', { name: 'Im Viewer öffnen' }).click();
     const page1 = await page1Promise;
     await expect(page1.locator('#title')).toContainText('H:Kracauer, Siegfried/01.01/Klebemappe 1921');
     await expect(page1.locator('.openseadragon-canvas')).toBeVisible();
