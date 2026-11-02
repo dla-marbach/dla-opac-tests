@@ -1,0 +1,49 @@
+# Dependabot: Version und Security Updates, gruppiert je Ecosystem.
+# Alerts und Security Updates zusätzlich unter Settings → Advanced Security aktivieren,
+# "Grouped security updates" dort aus lassen (Gruppierung steht hier).
+# cooldown: neue Versionen erst nach 7 Tagen vorschlagen (Schutz vor
+# kompromittierten Releases). Security Updates sind davon nicht betroffen.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
+      github-actions-security:
+        applies-to: security-updates
+        patterns: ["*"]
+
+  # Nur der Devcontainer hat ein Dockerfile. Das Playwright-Image in
+  # run-tests.sh erkennt Dependabot nicht, es folgt der npm-Version (siehe unten).
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      docker:
+        patterns: ["*"]
+      docker-security:
+        applies-to: security-updates
+        patterns: ["*"]
+
+  # Ein Update von @playwright/test schlägt in der CI fehl, bis im selben PR
+  # der Image-Tag in run-tests.sh auf dieselbe Version gesetzt ist.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      npm:
+        patterns: ["*"]
+      npm-security:
+        applies-to: security-updates
+        patterns: ["*"]

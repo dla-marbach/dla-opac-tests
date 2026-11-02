@@ -1,3 +1,17 @@
 {
-	"postCreateCommand": "npm ci && (sudo rm -f /etc/apt/sources.list.d/yarn.list || true) && npx playwright install chromium --with-deps"
+  "name": "dla-opac-tests",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "remoteUser": "node",
+  // Abhängigkeiten aus package-lock.json und Chromium mit Systembibliotheken.
+  // Die Yarn-Paketquelle des Base Images wird entfernt, weil ihr Schlüssel
+  // regelmäßig abläuft und dann apt-get update (für --with-deps) scheitert.
+  "postCreateCommand": "npm ci && (sudo rm -f /etc/apt/sources.list.d/yarn.list || true) && npx playwright install chromium --with-deps",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-playwright.playwright"]
+    }
+  }
 }
