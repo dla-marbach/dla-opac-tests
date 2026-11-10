@@ -14,7 +14,7 @@ Dieses Projekt läuft nicht als Container-App. Die Tests werden vom Scheduler im
    BASE_URL=https://www-test-ng.dla-marbach.de/ npx playwright test tests/katalog/suche.spec.ts
    ```
 
-   Die CI lädt nur die Testdateien, prüft die Playwright-Version in `run-tests.sh` und scannt das Repo; die Tests selbst laufen nicht in der CI.
+   Bei Änderungen an `run-tests.sh` zusätzlich `shellcheck run-tests.sh`. Die CI lädt nur die Testdateien, prüft die Playwright-Version und `run-tests.sh` und scannt das Repo; die Tests selbst laufen nicht in der CI.
 4. **Pushen und Pull Request nach `main` öffnen:**
    - Titel mit Ticketnummer ohne „#“, z. B. „Test für CSV-Export der Merkliste (Ticket 1234)“. `#1234` würde auf GitHub verlinken statt auf Redmine.
    - Beschreibung: Link zum Ticket, was sich ändert und warum, gegen welches System die Tests lokal liefen.
@@ -57,3 +57,4 @@ Die Tests ändern keine Daten, eine Sicherung ist deshalb nicht nötig. `.auth/`
 
 - **Tests nicht in der CI:** Die Tests prüfen die Live-Systeme, das Produktivsystem lässt aus externen Netzen nur wenige Zugriffe pro Minute zu. Sie laufen täglich über den Scheduler im DLA und bei Änderungen lokal; die CI lädt die Testdateien nur, ohne sie auszuführen.
 - **Playwright-Version an zwei Stellen:** Der Image-Tag in `run-tests.sh` muss zur Version von `@playwright/test` in `package-lock.json` passen. Dependabot aktualisiert nur das Lockfile, die CI schlägt dann fehl, bis der Tag im selben PR nachgezogen ist.
+- **Supportende:** Node.js kommt im Betrieb aus dem Playwright-Image, im Devcontainer aus dessen Base Image (beide Node.js 22, Supportende 30.04.2027). Der Wechsel auf die nächste LTS-Version wird per Ticket eingeplant, sobald das Playwright-Image sie mitbringt.

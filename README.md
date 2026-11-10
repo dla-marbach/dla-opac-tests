@@ -26,6 +26,6 @@ BASE_URL=https://www-test-ng.dla-marbach.de/ npx playwright test   # gegen das T
 npx playwright test --reporter html && npx playwright show-report  # gegen www, mit HTML-Report
 ```
 
-Die CI prüft bei jedem Pull Request, ob alle Testdateien geladen werden können und ob der Image-Tag in `run-tests.sh` zur Playwright-Version passt, und scannt das Repo mit Trivy. Die Tests selbst laufen dort nicht, um das Produktivsystem nicht zusätzlich zu belasten.
+Die CI prüft bei jedem Pull Request, ob alle Testdateien geladen werden können und ob der Image-Tag in `run-tests.sh` zur Playwright-Version passt, prüft `run-tests.sh` mit ShellCheck und scannt das Repo mit Trivy (alle Funde im Log und in der Job-Zusammenfassung, Fehlschlag bei HIGH und CRITICAL). Die Tests selbst laufen dort nicht, um das Produktivsystem nicht zusätzlich zu belasten.
 
 Der Ablauf für Änderungen, Releases und das Deployment auf dem Scheduler steht in der [CONTRIBUTING.md](CONTRIBUTING.md), Regeln für KI-Agenten in der [AGENTS.md](AGENTS.md).

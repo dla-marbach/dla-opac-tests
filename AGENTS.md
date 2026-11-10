@@ -7,7 +7,7 @@ Regeln für KI-Agenten in diesem Repository. Zweck, Aufbau und Befehle des Proje
 - Fehlt ein Werkzeug, benenne es im PR; die Ergänzung gehört in `.devcontainer/`.
 
 ## Checks vor Abschluss
-- Maßgeblich sind die Schritte in `.github/workflows/`. Die CI lädt alle Testdateien (`npx playwright test --list`), prüft die Playwright-Version in `run-tests.sh` und scannt das Repo mit Trivy; behebe ihre Funde.
+- Maßgeblich sind die Schritte in `.github/workflows/`. Die CI lädt alle Testdateien (`npx playwright test --list`), prüft die Playwright-Version in `run-tests.sh`, prüft `run-tests.sh` mit `shellcheck` und scannt das Repo mit Trivy; behebe ihre Funde. Führe `shellcheck` bei Änderungen an Shell-Skripten lokal genauso aus.
 - Die Tests selbst laufen gegen die Live-Systeme und deshalb nicht in der CI. Führe neue und geänderte Tests lokal aus, bevorzugt gegen das Testsystem (`BASE_URL=https://www-test-ng.dla-marbach.de/ npx playwright test <datei>`), und nenne das Ergebnis im PR. Ist das System aus deiner Umgebung nicht erreichbar, schreibe das in den PR.
 - Neue Prüfungen am Katalog bekommen eigene Tests, mit Ticketnummer im Kommentar.
 
@@ -21,6 +21,7 @@ Regeln für KI-Agenten in diesem Repository. Zweck, Aufbau und Befehle des Proje
 - Updates von Abhängigkeiten, GitHub Actions und Base Images übernimmt Dependabot. Ändere Versionen nur, wenn die Aufgabe es erfordert.
 - Füge neue Abhängigkeiten nur hinzu, wenn die Aufgabe es erfordert. Begründe sie im PR und aktualisiere das Lockfile.
 - Base Image in `.devcontainer/Dockerfile` und Playwright-Image in `run-tests.sh` immer mit festem Versionstag, nie `latest`. Der Tag in `run-tests.sh` muss zur Version von `@playwright/test` in `package-lock.json` passen.
+- Fremdbibliotheken nur über den Paketmanager einbinden, nie als kopierte Datei ins Repo.
 
 ## Betrieb
 - Ein Scheduler im DLA führt die Tests täglich mit `run-tests.sh` gegen Produktiv- und Testsystem aus, und zwar mit einem Release-Tag, nicht mit `main`.
