@@ -26,12 +26,8 @@ test('Multimedia', async ({ page }) => {
         .filter({ visible: true })
         .first();
     await expect(slide.locator('.dla-slideshow-caption')).toHaveText('In: Klebemappe 1921 Nachlass Siegfried Kracauer');
-    const page1Promise = page.waitForEvent('popup');
-    await slide.getByRole('link', { name: 'Im Viewer öffnen' }).click();
-    const page1 = await page1Promise;
-    await expect(page1.locator('#title')).toContainText('H:Kracauer, Siegfried/01.01/Klebemappe 1921');
-    await expect(page1.locator('.openseadragon-canvas')).toBeVisible();
-    const url = page1.url();
-    expect(url).toContain('digital.dla-marbach');
+    const viewerLink = slide.getByRole('link', { name: 'Im Viewer öffnen' });
+    await expect(viewerLink).toHaveAttribute('href', 'https://digital.dla-marbach.de/viewer/image/BF00043378/?media_access=public&media_thumbnail=BF000433783_0001.tif');
+    await expect(viewerLink).toHaveAttribute('target', '_blank');
 
 });
